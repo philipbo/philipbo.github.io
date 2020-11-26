@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Golang的包管理实践 - Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Philipbo" /><meta name="description" content="Golang包管理带来的问题 Golang包管理，在团队成员比较少的情况下，Golang自带的包管理工具 go get 足已满足使用，但是由于服务端团队在急速扩张，同学越来越多，对于Golang包管理就会带来以下问题：
+  所有项目共同使用GOPATH中的第三方库, 缺乏明确显示的版本。团队开发容易导入不一样的版本。 第三方包没有内容安全审计，很容易引入代码 Bug 每位同学都需要 go get 所有包。 如果换台电脑，又需要重新go get下载。   解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。
+" /><meta name="keywords" content="philipbo, go, golang, gopher, 技术" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.78.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.daizibo.cn/post/golang-package-management/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Golang的包管理实践" />
+<meta property="og:description" content="Golang包管理带来的问题
+Golang包管理，在团队成员比较少的情况下，Golang自带的包管理工具 go get 足已满足使用，但是由于服务端团队在急速扩张，同学越来越多，对于Golang包管理就会带来以下问题：
+
+
+所有项目共同使用GOPATH中的第三方库, 缺乏明确显示的版本。团队开发容易导入不一样的版本。
+第三方包没有内容安全审计，很容易引入代码 Bug
+每位同学都需要 go get 所有包。
+如果换台电脑，又需要重新go get下载。
+
+
+解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.daizibo.cn/post/golang-package-management/" />
+<meta property="article:published_time" content="2016-06-17T17:41:57+08:00" />
+<meta property="article:modified_time" content="2016-06-17T17:41:57+08:00" />
+<meta itemprop="name" content="Golang的包管理实践">
+<meta itemprop="description" content="Golang包管理带来的问题
+Golang包管理，在团队成员比较少的情况下，Golang自带的包管理工具 go get 足已满足使用，但是由于服务端团队在急速扩张，同学越来越多，对于Golang包管理就会带来以下问题：
+
+
+所有项目共同使用GOPATH中的第三方库, 缺乏明确显示的版本。团队开发容易导入不一样的版本。
+第三方包没有内容安全审计，很容易引入代码 Bug
+每位同学都需要 go get 所有包。
+如果换台电脑，又需要重新go get下载。
+
+
+解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。">
+<meta itemprop="datePublished" content="2016-06-17T17:41:57+08:00" />
+<meta itemprop="dateModified" content="2016-06-17T17:41:57+08:00" />
+<meta itemprop="wordCount" content="2922">
+
+
+
+<meta itemprop="keywords" content="Golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang的包管理实践"/>
+<meta name="twitter:description" content="Golang包管理带来的问题
+Golang包管理，在团队成员比较少的情况下，Golang自带的包管理工具 go get 足已满足使用，但是由于服务端团队在急速扩张，同学越来越多，对于Golang包管理就会带来以下问题：
+
+
+所有项目共同使用GOPATH中的第三方库, 缺乏明确显示的版本。团队开发容易导入不一样的版本。
+第三方包没有内容安全审计，很容易引入代码 Bug
+每位同学都需要 go get 所有包。
+如果换台电脑，又需要重新go get下载。
+
+
+解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Philipbo&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Philipbo&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Golang的包管理实践</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-06-17 </span>
+        <div class="post-category">
+            <a href="/categories/golang/"> Golang </a>
+            </div>
+          <span class="more-meta"> 约 2922 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#golang包管理带来的问题">Golang包管理带来的问题</a></li>
+        <li><a href="#官方对包管理依赖的建议">官方对包管理依赖的建议</a></li>
+        <li><a href="#包管理工具实践">包管理工具实践</a>
+          <ul>
+            <li><a href="#godep">godep</a></li>
+            <li><a href="#gvt">gvt</a></li>
+            <li><a href="#glide">glide</a></li>
+            <li><a href="#gom">gom</a></li>
+          </ul>
+        </li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2016-06-17T17:41:57" title="June 17, 2016">June 17, 2016</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <h2 id="golang包管理带来的问题">Golang包管理带来的问题</h2>
+<p>Golang包管理，在团队成员比较少的情况下，Golang自带的包管理工具 <code>go get</code> 足已满足使用，但是由于服务端团队在急速扩张，同学越来越多，对于Golang包管理就会带来以下问题：</p>
+<blockquote>
+<ol>
+<li>所有项目共同使用GOPATH中的第三方库, 缺乏明确显示的版本。团队开发容易导入不一样的版本。</li>
+<li>第三方包没有内容安全审计，很容易引入代码 Bug</li>
+<li>每位同学都需要 <code>go get</code> 所有包。</li>
+<li>如果换台电脑，又需要重新<code>go get</code>下载。</li>
+</ol>
+</blockquote>
+<p><strong>解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。</strong></p>
+<h2 id="官方对包管理依赖的建议">官方对包管理依赖的建议</h2>
+<ul>
+<li>当使用开源类库时，尽量的少用第三方库，学会使用标准库。发布的类库，也请使用版本服务，类如gopkg.in来管理版本。</li>
+<li>对于包管理，使用<a href="https://github.com/golang/go/wiki/PackageManagementTools">官方推荐</a>的工具来管理。</li>
+</ul>
+<p>由于官方对于包管理暂时没有明确的指导意见，所以，作为社区驱动的一门语言，不缺乏各路优秀开发者推出的自己的最佳实践工具。请参考官方推荐 <a href="https://github.com/golang/go/wiki/PackageManagementTools">[PackageManagementTools]</a></p>
+<h2 id="包管理工具实践">包管理工具实践</h2>
+<p>笔者只对以下几个包管理工具进行了实践，找到满足自己需求的那款。</p>
+<p>测试环境:
+<strong>go version go1.6.2 darwin/amd64</strong>
+<strong>main.go</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
+  <span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/ping&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
+      <span class="s">&#34;message&#34;</span><span class="p">:</span> <span class="s">&#34;pong&#34;</span><span class="p">,</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+  <span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span> <span class="c1">// listen and server on 0.0.0.0:8080
+</span><span class="c1"></span><span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="godep">godep</h3>
+<ol>
+<li>
+<p><strong>详情请查看 <a href="https://github.com/tools/godep">官方文档</a></strong></p>
+</li>
+<li>
+<p><strong>安装</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go get -u github.com/tools/godep
+   
+$ godep <span class="nb">help</span>
+Godep is a tool <span class="k">for</span> managing Go package dependencies.
+   
+Usage:
+   
+  godep <span class="nb">command</span> <span class="o">[</span>arguments<span class="o">]</span>
+   
+The commands are:
+   
+    save     list and copy dependencies into Godeps
+    go       run the go tool with saved dependencies
+    get      download and install packages with specified dependencies
+    path     print GOPATH <span class="k">for</span> dependency code
+    restore  check out listed dependency versions in GOPATH
+    update   update selected packages or the go version
+    diff     shows the diff between current and previously saved <span class="nb">set</span> of dependencies
+    version  show version info
+   
+Use <span class="s2">&#34;godep help [command]&#34;</span> <span class="k">for</span> more information about a command.
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>用法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="err">#</span> <span class="nx">add</span> <span class="kn">package</span>
+<span class="err">$</span> <span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="p">&lt;</span><span class="kn">package</span> <span class="nx">name</span><span class="p">&gt;</span> <span class="err">#</span><span class="nx">视具体情况而定</span>
+<span class="err">$</span> <span class="nx">godep</span> <span class="nx">save</span>
+   
+<span class="err">$</span> <span class="nx">tree</span> <span class="o">-</span><span class="nx">d</span>
+<span class="p">.</span>
+<span class="err">├──</span> <span class="nx">Godeps</span>
+<span class="err">└──</span> <span class="nx">vendor</span>
+    <span class="err">├──</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span>
+    <span class="err">│</span>   <span class="err">├──</span> <span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span>
+    <span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="nx">gin</span>
+    <span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="nx">binding</span>
+    <span class="err">│</span>   <span class="err">│</span>       <span class="err">└──</span> <span class="nx">render</span>
+    <span class="err">│</span>   <span class="err">├──</span> <span class="nx">golang</span>
+    <span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="nx">protobuf</span>
+    <span class="err">│</span>   <span class="err">│</span>       <span class="err">└──</span> <span class="nx">proto</span>
+    <span class="err">│</span>   <span class="err">└──</span> <span class="nx">manucorporat</span>
+    <span class="err">│</span>       <span class="err">└──</span> <span class="nx">sse</span>
+    <span class="err">├──</span> <span class="nx">golang</span><span class="p">.</span><span class="nx">org</span>
+    <span class="err">│</span>   <span class="err">└──</span> <span class="nx">x</span>
+    <span class="err">│</span>       <span class="err">└──</span> <span class="nx">net</span>
+    <span class="err">│</span>           <span class="err">└──</span> <span class="nx">context</span>
+    <span class="err">└──</span> <span class="nx">gopkg</span><span class="p">.</span><span class="nx">in</span>
+        <span class="err">└──</span> <span class="k">go</span><span class="o">-</span><span class="nx">playground</span>
+            <span class="err">└──</span> <span class="nx">validator</span><span class="p">.</span><span class="nx">v8</span>
+   
+<span class="err">#</span> <span class="nx">update</span> <span class="kn">package</span>
+<span class="err">$</span> <span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="p">&lt;</span><span class="kn">package</span> <span class="nx">name</span><span class="p">&gt;</span>
+<span class="err">$</span> <span class="nx">godep</span> <span class="nx">update</span> <span class="p">&lt;</span><span class="kn">package</span> <span class="nx">name</span><span class="p">&gt;</span>
+   
+</code></pre></td></tr></table>
+</div>
+</div><p>生成Godeps/Godeps.json文件, 不要修改。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+  &#34;ImportPath&#34;: &#34;me.com/testpkg&#34;,
+  &#34;GoVersion&#34;: &#34;go1.6&#34;,
+  &#34;GodepVersion&#34;: &#34;v74&#34;,
+  &#34;Deps&#34;: [
+    {
+      &#34;ImportPath&#34;: &#34;github.com/gin-gonic/gin&#34;,
+      &#34;Comment&#34;: &#34;v1.0rc1-219-g3d002e3&#34;,
+      &#34;Rev&#34;: &#34;3d002e382355cafc15d706b92899b1961d5b79e9&#34;
+    },
+    {
+      &#34;ImportPath&#34;: &#34;github.com/gin-gonic/gin/binding&#34;,
+      &#34;Comment&#34;: &#34;v1.0rc1-219-g3d002e3&#34;,
+      &#34;Rev&#34;: &#34;3d002e382355cafc15d706b92899b1961d5b79e9&#34;
+    },
+    ......
+  ]
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>执行 <code>go restore</code>时，会按照Godeps/Godeps.json内列表，依次执行go get -d -v 来下载对应依赖包到GOPATH路径下。</p>
+</li>
+<li>
+<p><strong>总结</strong></p>
+<ul>
+<li><code>godep save</code> 前提所有依赖包已使用<code>go get</code>安装到GOPATH下，依赖包必须使用了某个代码管理工具（git等）,这是因为godep需要记录revision。</li>
+<li>只是对依赖包的一个copy, 把依赖包从GOPATH复制到项目中。</li>
+<li>godep 是在go tool上包装了个壳，在使用<code>go build</code>等命令时，请使用<code>godep go build</code>等，在go前面加上godep。</li>
+</ul>
+</li>
+</ol>
+<h3 id="gvt">gvt</h3>
+<ol>
+<li>
+<p><strong>详情请查看 <a href="https://github.com/FiloSottile/gvt">官方文档</a></strong></p>
+</li>
+<li>
+<p><strong>安装</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ go get -u github.com/FiloSottile/gvt
+   
+<span class="c1"># 安装完成后，运行`gvt help`，如下安装成功</span>
+$ gvt <span class="nb">help</span>
+gvt, a simple go vendoring tool based on gb-vendor.
+   
+Usage:
+        gvt <span class="nb">command</span> <span class="o">[</span>arguments<span class="o">]</span>
+   
+The commands are:
+   
+        fetch       fetch a remote dependency
+        restore     restore dependencies from manifest
+        update      update a <span class="nb">local</span> dependency
+        list        list dependencies one per line
+        delete      delete a <span class="nb">local</span> dependency
+   
+Use <span class="s2">&#34;gvt help [command]&#34;</span> <span class="k">for</span> more information about a command.
+   
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>用法</strong></p>
+<p>在想使用<code>go get</code>时，使用<code>gvt fetch</code>代替</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gvt fetch github.com/gin-gonic/gin
+2016/06/17 18:42:25 Fetching: github.com/gin-gonic/gin
+2016/06/17 18:42:33 · Fetching recursive dependency: golang.org/x/net/context
+....
+   
+   
+$ tree -d
+.
+└── vendor
+    ├── github.com
+    │   ├── dustin
+    │   │   └── go-broadcast
+    │   ├── gin-gonic
+    │   │   └── gin
+    │   │       ├── binding
+    │   │       │   └── example
+    │   │       ├── examples
+    │   │       │   ├── app-engine
+    │   │       │   ├── basic
+    │   │       │   ├── realtime-advanced
+    │   │       │   └── realtime-chat
+    │   │       ├── ginS
+    │   │       └── render
+    │   ├── golang
+    │   │   └── protobuf
+    │   │       ├── proto
+    │   │       │   └── proto3_proto
+    │   │       └── ptypes
+    │   │           └── any
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>manifest文件</strong>
+<code>gvt restore</code> 以此manifest为准,下面部分源码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+    &#34;version&#34;: 0,
+    &#34;dependencies&#34;: [
+        {
+            &#34;importpath&#34;: &#34;github.com/dustin/go-broadcast&#34;,
+            &#34;repository&#34;: &#34;https://github.com/dustin/go-broadcast&#34;,
+            &#34;vcs&#34;: &#34;git&#34;,
+            &#34;revision&#34;: &#34;3bdf6d4a7164a50bc19d5f230e2981d87d2584f1&#34;,
+            &#34;branch&#34;: &#34;master&#34;,
+            &#34;notests&#34;: true
+        },
+        {
+            &#34;importpath&#34;: &#34;github.com/gin-gonic/gin&#34;,
+            &#34;repository&#34;: &#34;https://github.com/gin-gonic/gin&#34;,
+            &#34;vcs&#34;: &#34;git&#34;,
+            &#34;revision&#34;: &#34;f931d1ea80ae95a6fc739213cdd9399bd2967fb6&#34;,
+            &#34;branch&#34;: &#34;develop&#34;,
+            &#34;notests&#34;: true
+        },
+        ....
+    ]    
+}
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>总结</strong></p>
+<ul>
+<li>在想使用<code>go get</code>时，使用<code>gvt fetch</code>代替，使用其他<code>go tools</code>命令与以前是一样的，如：<code>go fmt</code>、<code>go build</code>、<code>go run</code>等等。</li>
+<li><code>gvt fetch</code> 可以获取特定的提交或分支，并且可以是私有的镜像。</li>
+<li>不需要改变你创建项目的方式。</li>
+<li>不需要手动添加，复制，清理依赖。</li>
+</ul>
+</li>
+</ol>
+<h3 id="glide">glide</h3>
+<ol>
+<li>
+<p><strong>详情请查看 <a href="https://github.com/Masterminds/glide">官方文档</a></strong></p>
+</li>
+<li>
+<p><strong>安装</strong></p>
+<p><a href="https://github.com/Masterminds/glide#install">查看文档</a></p>
+</li>
+<li>
+<p><strong>用法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="err">$</span> <span class="nx">glide</span> <span class="nx">create</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Generating</span> <span class="nx">a</span> <span class="nx">YAML</span> <span class="nx">configuration</span> <span class="nx">file</span> <span class="nx">and</span> <span class="nx">guessing</span> <span class="nx">the</span> <span class="nx">dependencies</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Attempting</span> <span class="nx">to</span> <span class="kn">import</span> <span class="nx">from</span> <span class="nx">other</span> <span class="kn">package</span> <span class="nf">managers</span> <span class="p">(</span><span class="nx">use</span> <span class="o">--</span><span class="nx">skip</span><span class="o">-</span><span class="kn">import</span> <span class="nx">to</span> <span class="nx">skip</span><span class="p">)</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Found</span> <span class="nx">reference</span> <span class="nx">to</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span><span class="o">/</span><span class="nx">gin</span>
+   
+<span class="err">$</span> <span class="nx">glide</span> <span class="nx">install</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Lock</span> <span class="nf">file</span> <span class="p">(</span><span class="nx">glide</span><span class="p">.</span><span class="nx">lock</span><span class="p">)</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">exist</span><span class="p">.</span> <span class="nx">Performing</span> <span class="nx">update</span><span class="p">.</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Downloading</span> <span class="nx">dependencies</span><span class="p">.</span> <span class="nx">Please</span> <span class="nx">wait</span><span class="o">...</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Fetching</span> <span class="nx">updates</span> <span class="k">for</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span><span class="o">/</span><span class="nx">gin</span><span class="p">.</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Resolving</span> <span class="nx">imports</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Found</span> <span class="nx">Godeps</span><span class="p">.</span><span class="nx">json</span> <span class="nx">file</span> <span class="nx">in</span> <span class="nx">vendor</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span><span class="o">/</span><span class="nx">gin</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Fetching</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">manucorporat</span><span class="o">/</span><span class="nx">sse</span> <span class="nx">into</span> <span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">zbo</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">me</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">testpkg</span><span class="o">/</span><span class="nx">vendor</span>
+<span class="o">......</span><span class="p">..</span>
+<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Project</span> <span class="nx">relies</span> <span class="nx">on</span> <span class="mi">6</span> <span class="nx">dependencies</span><span class="p">.</span>
+   
+</code></pre></td></tr></table>
+</div>
+</div><p>glide.yaml  <a href="http://glide.readthedocs.io/en/latest/glide.yaml/">详细说明</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">package: me.com/testpkg
+import:
+- package: github.com/gin-gonic/gin
+   
+</code></pre></td></tr></table>
+</div>
+</div><p>glide.lock</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">hash: 7772f906f51de7fa50761d0ed254e12e83429979a6621bef4fb164b9051df88d
+updated: 2016-06-20T11:42:35.002094371+08:00
+imports:
+- name: github.com/gin-gonic/gin
+  version: f931d1ea80ae95a6fc739213cdd9399bd2967fb6
+  subpackages:
+  - binding
+  - render
+- name: github.com/golang/protobuf
+  version: 2402d76f3d41f928c7902a765dfc872356dd3aad
+  subpackages:
+  - proto
+- name: github.com/manucorporat/sse
+  version: ee05b128a739a0fb76c7ebd3ae4810c1de808d6d
+- name: golang.org/x/net
+  version: f315505cf3349909cdf013ea56690da34e96a451
+  subpackages:
+  - context
+- name: gopkg.in/go-playground/validator.v8
+  version: c193cecd124b5cc722d7ee5538e945bdb3348435
+- name: gopkg.in/yaml.v2
+  version: a83829b6f1293c91addabc89d0571c246397bbf4
+devImports: []
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>总结</strong></p>
+<ul>
+<li>简单方便，查看glide.yaml，一目了然项目中的所有依赖。</li>
+<li>可以从其他第三方工具的配置文件中导入，如：godep,gom,gpm等。</li>
+<li>可以指定第三包的版本，commit, repo等。支持vcs。如: git, hg, svn等。</li>
+<li>可以在所有go tools上工作。</li>
+</ul>
+</li>
+<li>
+<p><strong>注意</strong>
+测试时的版本是0.10.2, glide rm -d <package name>时，glide.yaml、glide.lock中对应的包都删除了，但是在vendor文件夹下的包没有删除。</p>
+</li>
+</ol>
+<h3 id="gom">gom</h3>
+<ol>
+<li>
+<p><strong>详情请查看 <a href="https://github.com/mattn/gom">官方文档</a></strong></p>
+</li>
+<li>
+<p><strong>安装</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ go get github.com/mattn/gom
+   
+# 安装成功
+$ gom help
+Usage of gom:
+ Tasks:
+   gom build   [options]   : Build with _vendor packages
+   gom install [options]   : Install bundled packages into _vendor directory, by default.
+                              GOM_VENDOR_NAME=. gom install [options], for regular src folder.
+   gom test    [options]   : Run tests with bundles
+   gom run     [options]   : Run go file with bundles
+   gom doc     [options]   : Run godoc for bundles
+   gom exec    [arguments] : Execute command with bundle environment
+   gom tool    [options]   : Run go tool with bundles
+   gom env     [arguments] : Run go env
+   gom fmt     [arguments] : Run go fmt
+   gom list    [arguments] : Run go list
+   gom vet     [arguments] : Run go vet
+   gom update              : Update all dependencies (Experiment)
+   gom gen travis-yml      : Generate .travis.yml which uses &#34;gom test&#34;
+   gom gen gomfile         : Scan packages from current directory as root
+                              recursively, and generate Gomfile
+   gom lock                : Generate Gomfile.lock
+   
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>用法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ gom gen gomfile
+   
+$ cat Gomfile
+gom &#39;github.com/gin-gonic/gin&#39;, :commit =&gt; &#39;3d002e382355cafc15d706b92899b1961d5b79e9&#39;
+gom &#39;github.com/golang/protobuf&#39;, :commit =&gt; &#39;9e6977f30c91c78396e719e164e57f9287fff42c&#39;
+gom &#39;github.com/manucorporat/sse&#39;, :commit =&gt; &#39;ee05b128a739a0fb76c7ebd3ae4810c1de808d6d&#39;
+gom &#39;golang.org/x/net&#39;, :commit =&gt; &#39;e7da8edaa52631091740908acaf2c2d4c9b3ce90&#39;
+gom &#39;gopkg.in/go-playground/validator.v8&#39;, :commit =&gt; &#39;014792cf3e266caff1e916876be12282b33059e0&#39;
+   
+$ gom install
+downloading github.com/gin-gonic/gin
+downloading github.com/golang/protobuf
+downloading github.com/manucorporat/sse
+downloading golang.org/x/net
+downloading gopkg.in/go-playground/validator.v8
+</code></pre></td></tr></table>
+</div>
+</div><p><code>gom install</code>完成后，生成vendor目录，把第三方包放到此目录下。</p>
+</li>
+<li>
+<p><strong>总结</strong></p>
+<ul>
+<li>gom 是在go tools上包装的壳，允许指定commit, branch, tag。</li>
+<li>gom 可以从不同的组group，安装第三方包。</li>
+<li>大部分go tools上的命令都需要使用gom。如: <code>gom run</code>、 <code>gom build</code>等。</li>
+</ul>
+</li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>以上几个工具，都可以实现第三方包纳入项目的版本管理中，各有自己的特点。</p>
+<ol>
+<li>godep 是把第三方包从GOPAHT中copy到项目中，生成vendor目录和配置文件，不需要重新下载，更新时，需要先更新GOPATH的第三方包，然后在使用<code>godep update</code>进行更新。</li>
+<li>gvt 是必须使用 <code>gvt fetch</code> 重新安装一次。允许指定commit 或 branch 或 private repos。</li>
+<li>glide 允许指定commit, version等，支持vcs,如git,svn等。可以从第三方工具库导入，如godep,gpm等。可以go tools上工作。但是每次<code>glide get</code> 都会检查已存的包，这个可以指定flag。</li>
+<li>gom， 使用<code>gom install</code>重新安装一次 可以指group安装第三包，允许指定commit,branch, tag.</li>
+</ol>
+<p><strong>最后</strong></p>
+<p>按照笔者的需求，只是把项目中的第三方包列入项目管理中，
+没有其他额外的需求。所以笔者选择是godep, 只要GOPATH安装，
+要做的事只copy到项目vendor下即可, 使用简单，作者更新频繁，
+当有其他需求时，在更新到glide上也不迟。
+如果有其他同学的需求有必须使用国内镜像
+（像大公司开发的类库、不开源）、指定commit、version等需求，可以选择glide、gvt。</p>
+<p><strong>参考资料</strong></p>
+<ol>
+<li><a href="http://www.infoq.com/cn/articles/golang-package-management">Golang的包管理之道</a></li>
+<li><a href="https://io-meter.com/2014/07/30/go%27s-package-management/">Go 语言的包依赖管理</a></li>
+</ol>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Philipbo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-06-17
+        
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechatpay.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">Golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/my-commit-message/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">我的Git提交信息规范</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="philipbo/myblog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:xiaobo1128@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/bo406" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/bo406" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/philipbo" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.daizibo.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Philipbo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-78578703-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?6c6616b9444b8bc78d9cbf2eb6550d7e";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

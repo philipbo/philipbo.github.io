@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</title>
+    <link>https://www.daizibo.cn/tags/git/</link>
+    <description>Recent content in Git on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 28 Jun 2016 14:41:49 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>我的Git提交信息规范</title>
+      <link>https://www.daizibo.cn/post/my-commit-message/</link>
+      <pubDate>Tue, 28 Jun 2016 14:41:49 +0800</pubDate>
+      
+      <guid>https://www.daizibo.cn/post/my-commit-message/</guid>
+      <description>&lt;p&gt;Git 每次提交代码，都要写 commit message（提交说明，写啥都可以），否则就不允许提交。
+但是对commit message的提交信息格式一直是个头疼的问题。在协作人数比较少的情况尊守口头规范还可以，在协作人数比较多的情况，如果没有规范，就是个头疼的问题，比如在作code review时，没办法很快的找到相关的commit.&lt;/p&gt;
+&lt;p&gt;最近看了一些关提交规范的文章，特别是阮一峰老师的&lt;code&gt;Commit message 和 Change log 编写指南&lt;/code&gt;文章，才有了更清晰的认识。commit message 应该清晰明了，说明本次提交的目的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;格式化的提交信息有诸多好处，整理一套自己用的提交信息格式，并在团队中试运行一段时间，感觉还不错，这是有这篇文章的原因。&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

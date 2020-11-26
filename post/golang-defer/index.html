@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Go语言的defer那点事 - Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Philipbo" /><meta name="description" content="Go语言的defer语句提供了强大的机制，通常用于简化执行各种清理操作，释放锁等操作，例如能够保证打开的文件，肯定被关闭，那你真的理解defer了吗？
+我们先看下边一段代码。先自己在心里运行一遍结果，然后在去验证。如果都对了，恭喜你不用看了，该干嘛干嘛去吧，不要浪费时间。
+" /><meta name="keywords" content="philipbo, go, golang, gopher, 技术" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.78.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.daizibo.cn/post/golang-defer/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Go语言的defer那点事" />
+<meta property="og:description" content="Go语言的defer语句提供了强大的机制，通常用于简化执行各种清理操作，释放锁等操作，例如能够保证打开的文件，肯定被关闭，那你真的理解defer了吗？
+我们先看下边一段代码。先自己在心里运行一遍结果，然后在去验证。如果都对了，恭喜你不用看了，该干嘛干嘛去吧，不要浪费时间。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.daizibo.cn/post/golang-defer/" />
+<meta property="article:published_time" content="2016-07-21T13:50:22+08:00" />
+<meta property="article:modified_time" content="2016-07-21T13:50:22+08:00" />
+<meta itemprop="name" content="Go语言的defer那点事">
+<meta itemprop="description" content="Go语言的defer语句提供了强大的机制，通常用于简化执行各种清理操作，释放锁等操作，例如能够保证打开的文件，肯定被关闭，那你真的理解defer了吗？
+我们先看下边一段代码。先自己在心里运行一遍结果，然后在去验证。如果都对了，恭喜你不用看了，该干嘛干嘛去吧，不要浪费时间。">
+<meta itemprop="datePublished" content="2016-07-21T13:50:22+08:00" />
+<meta itemprop="dateModified" content="2016-07-21T13:50:22+08:00" />
+<meta itemprop="wordCount" content="1534">
+
+
+
+<meta itemprop="keywords" content="Golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go语言的defer那点事"/>
+<meta name="twitter:description" content="Go语言的defer语句提供了强大的机制，通常用于简化执行各种清理操作，释放锁等操作，例如能够保证打开的文件，肯定被关闭，那你真的理解defer了吗？
+我们先看下边一段代码。先自己在心里运行一遍结果，然后在去验证。如果都对了，恭喜你不用看了，该干嘛干嘛去吧，不要浪费时间。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Philipbo&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Philipbo&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Go语言的defer那点事</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-07-21 </span>
+        <div class="post-category">
+            <a href="/categories/golang/"> Golang </a>
+            </div>
+          <span class="more-meta"> 约 1534 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#defer-的规则">defer 的规则</a></li>
+        <li><a href="#defer-实现机制">defer 实现机制</a></li>
+        <li><a href="#答案">答案</a></li>
+        <li><a href="#最后">最后</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2016-07-21T13:50:22" title="July 21, 2016">July 21, 2016</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <p>Go语言的<code>defer</code>语句提供了强大的机制，通常用于简化执行各种清理操作，释放锁等操作，例如能够保证打开的文件，肯定被关闭，那你真的理解<code>defer</code>了吗？</p>
+<p>我们先看下边一段代码。先自己在心里运行一遍结果，然后在去验证。如果都对了，恭喜你不用看了，该干嘛干嘛去吧，不要浪费时间。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+<span class="kn">import</span> <span class="s">&#34;log&#34;</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;f %v&#34;</span><span class="p">,</span> <span class="nf">f</span><span class="p">())</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;f1 %v&#34;</span><span class="p">,</span> <span class="nf">f1</span><span class="p">())</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;f2 %v&#34;</span><span class="p">,</span> <span class="nf">f2</span><span class="p">())</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;f3 %v&#34;</span><span class="p">,</span> <span class="nf">f3</span><span class="p">())</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;f4 %v&#34;</span><span class="p">,</span> <span class="nf">f4</span><span class="p">())</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;f5 %v&#34;</span><span class="p">,</span> <span class="nf">f5</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">f</span><span class="p">()</span> <span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">i</span><span class="o">++</span>
+    <span class="p">}()</span>
+
+    <span class="k">return</span> <span class="mi">0</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">f1</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">i</span><span class="o">++</span>
+    <span class="p">}()</span>
+
+    <span class="k">return</span> <span class="nx">i</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">f2</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="mi">5</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">i</span> <span class="p">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">5</span>
+    <span class="p">}()</span>
+
+    <span class="k">return</span> <span class="nx">i</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">f3</span><span class="p">()</span> <span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="p">=</span> <span class="mi">5</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">i</span> <span class="p">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">5</span>
+    <span class="p">}()</span>
+
+    <span class="k">return</span> <span class="nx">i</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">f4</span><span class="p">()</span> <span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">t</span> <span class="o">:=</span> <span class="mi">5</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">t</span> <span class="p">=</span> <span class="nx">t</span> <span class="o">+</span> <span class="mi">5</span>
+    <span class="p">}()</span>
+    <span class="k">return</span> <span class="nx">t</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">f5</span><span class="p">()</span> <span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">defer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">i</span> <span class="p">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">5</span>
+    <span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>答案在结尾处，着急验证的直接翻到底就看到了：）</p>
+<h2 id="defer-的规则">defer 的规则</h2>
+<p>《官方文档》<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>中有明确的说明。
+以下是我个人的理解，英文水平有限。</p>
+<ol>
+<li><code>defer</code> 语句push 到一个list中，这个list是后进先出(LIFO)</li>
+<li><code>defer</code> 语句是在 return 前执行</li>
+<li><code>defer</code> 语句在执行时，函数值和参数是及时评估（确定）
+例如:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">f6</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="k">defer</span> <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;in defer i %d&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="c1">//output 0
+</span><span class="c1"></span>    <span class="nx">i</span><span class="o">++</span>
+    <span class="k">return</span> <span class="nx">i</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>在一个有命名返回值的<code>function</code>中，定义了内嵌的<code>defer function</code>，这个<code>defer function</code> 在 父<code>function</code> 返回前，可以访问并且修改命名返回值。比如上边的f(),f3()。而<code>defer function</code>中有返回值的话，会被丢弃。</li>
+<li><code>defer</code> 语句配合 <code>panic</code> 和 <code>recover</code> 使用。</li>
+</ol>
+<p>在《Defer, Panic, and Recover》<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>的Blog中，也给出了几个简单规则。</p>
+<ol>
+<li>A deferred function&rsquo;s arguments are evaluated when the defer statement is evaluated.</li>
+<li>Deferred function calls are executed in Last In First Out order after the surrounding function returns.</li>
+<li>Deferred functions may read and assign to the returning function&rsquo;s named return values.</li>
+</ol>
+<p>在了解<code>defer</code>的规则之后，接下来看看<code>defer</code>实现机制。</p>
+<h2 id="defer-实现机制">defer 实现机制</h2>
+<p>以下引用《Go语言的defer，你真的懂了吗？》文章<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
+<blockquote>
+<p>大致就是在defer出现的地方，插入指令CALL runtime.deferproc，然后在函数返回之前的地方，插入指令CALL runtime.deferreturn。再就是明确go返回值的方式跟C是不一样的，为了支持多值返回，go是用栈返回值的，而C是用寄存器。</p>
+</blockquote>
+<p><strong>最最重要的一点就是：</strong>
+<strong>return xxx这一条语句并不是一条原子指令!</strong></p>
+<blockquote>
+<p>整个return过程，没有defer之前，先在栈中写一个值，这个值会被当作返回值，然后再调用RET指令返回。return xxx语句汇编后是先给返回值赋值，再做一个空的return，( 赋值指令 ＋ RET指令)。defer的执行是被插入到return指令之前的，有了defer之后，就变成了(赋值指令 + CALL defer指令 + RET指令)。而在CALL defer函数中，有可能将最终的返回值改写了&hellip;也有可能没改写。总之，如果改写了，那么看上去就像defer是在return xxx之后执行的。</p>
+</blockquote>
+<p>以上就是<code>defer</code>的基本知识，了解了这些，就在也不迷糊了。</p>
+<p><strong>这里有一个简单的转换规则，改写规则是将return语句分开成两句写，return xxx会被改写成:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">返回值 = xxx
+调用defer函数
+空的return
+</code></pre></td></tr></table>
+</div>
+</div><p>来两个例子，还记得上边的代码f()和f2()吗?
+f()可以改写成这样:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">f</span><span class="p">()</span> <span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">i</span> <span class="p">=</span> <span class="mi">0</span> <span class="c1">//return语句不是一条原子调用，return xxx其实是赋值＋RET指令
+</span><span class="c1"></span>    <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">i</span><span class="o">++</span> <span class="c1">//defer被插入到return之前执行，也就是赋返回值和RET指令之间
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="k">return</span> 
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出 f() = 1</p>
+<p>f2() 改成这样:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">func f2() int {
+    i := 5
+    result = 5 //返回值赋值
+    func() {
+        i = i + 5
+    }
+    return 
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>输出 f2() = 5</p>
+<p>这回小伙伴们应该对<code>defer</code>有了更深的了解了吧。</p>
+<h2 id="答案">答案</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ go run main.go 
+f 1
+f1 0
+f2 5
+f3 10
+f4 5
+f5 1
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="最后">最后</h2>
+<p><code>defer</code> 强大的机制给gopher带来方便，但也是性能杀手，追求极致性能时，慎用之。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://golang.org/ref/spec#Defer_statements/">https://golang.org/ref/spec#Defer_statements/</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://blog.golang.org/defer-panic-and-recover/">https://blog.golang.org/defer-panic-and-recover/</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p><a href="http://www.zenlife.tk/golang-defer.md/">http://www.zenlife.tk/golang-defer.md/</a> <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Philipbo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-07-21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechatpay.jpg">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">Golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/golang-array-slice/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Go语言的array、slice，你需要知道的那些事儿</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/my-commit-message/">
+            <span class="next-text nav-default">我的Git提交信息规范</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="philipbo/myblog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:xiaobo1128@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/bo406" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/bo406" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="https://github.com/philipbo" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.daizibo.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Philipbo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-78578703-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?6c6616b9444b8bc78d9cbf2eb6550d7e";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

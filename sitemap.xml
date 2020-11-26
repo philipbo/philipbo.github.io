@@ -1,0 +1,102 @@
+<?xml-stylesheet type="text/xsl" href="https://www.daizibo.cn/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://www.daizibo.cn/about/</loc>
+    <lastmod>2020-11-26T15:33:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/categories/</loc>
+    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/tags/golang/</loc>
+    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/categories/golang/</loc>
+    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/post/golang-array-slice/</loc>
+    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/</loc>
+    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/post/</loc>
+    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/tags/</loc>
+    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/post/golang-defer/</loc>
+    <lastmod>2016-07-21T13:50:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/tags/git/</loc>
+    <lastmod>2016-06-28T14:41:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/categories/git/</loc>
+    <lastmod>2016-06-28T14:41:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/post/my-commit-message/</loc>
+    <lastmod>2016-06-28T14:41:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/categories/%E6%90%AC%E7%A0%96/</loc>
+    <lastmod>2016-06-28T14:41:49+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/post/golang-package-management/</loc>
+    <lastmod>2016-06-17T17:41:57+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>
