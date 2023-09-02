@@ -79,14 +79,14 @@
   </url>
   
   <url>
-    <loc>https://www.daizibo.cn/post/my-commit-message/</loc>
+    <loc>https://www.daizibo.cn/categories/%E6%90%AC%E7%A0%96/</loc>
     <lastmod>2016-06-28T14:41:49+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.daizibo.cn/categories/%E6%90%AC%E7%A0%96/</loc>
+    <loc>https://www.daizibo.cn/post/my-commit-message/</loc>
     <lastmod>2016-06-28T14:41:49+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

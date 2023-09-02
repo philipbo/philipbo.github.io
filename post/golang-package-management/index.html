@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Philipbo" /><meta name="description" content="Golang包管理带来的问题 Golang包管理，在团队成员比较少的情况下，Golang自带的包管理工具 go get 足已满足使用，但是由于服务端团队在急速扩张，同学越来越多，对于Golang包管理就会带来以下问题：
-  所有项目共同使用GOPATH中的第三方库, 缺乏明确显示的版本。团队开发容易导入不一样的版本。 第三方包没有内容安全审计，很容易引入代码 Bug 每位同学都需要 go get 所有包。 如果换台电脑，又需要重新go get下载。   解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。
+所有项目共同使用GOPATH中的第三方库, 缺乏明确显示的版本。团队开发容易导入不一样的版本。 第三方包没有内容安全审计，很容易引入代码 Bug 每位同学都需要 go get 所有包。 如果换台电脑，又需要重新go get下载。 解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。
 " /><meta name="keywords" content="philipbo, go, golang, gopher, 技术" />
 
 
@@ -25,7 +25,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.78.2 with theme even" />
+<meta name="generator" content="Hugo 0.118.2 with theme even" />
 
 
 <link rel="canonical" href="https://www.daizibo.cn/post/golang-package-management/" />
@@ -37,7 +37,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -54,7 +54,7 @@ Golang包管理，在团队成员比较少的情况下，Golang自带的包管�
 
 解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.daizibo.cn/post/golang-package-management/" />
+<meta property="og:url" content="https://www.daizibo.cn/post/golang-package-management/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2016-06-17T17:41:57+08:00" />
 <meta property="article:modified_time" content="2016-06-17T17:41:57+08:00" />
 <meta itemprop="name" content="Golang的包管理实践">
@@ -68,15 +68,10 @@ Golang包管理，在团队成员比较少的情况下，Golang自带的包管�
 如果换台电脑，又需要重新go get下载。
 
 
-解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。">
-<meta itemprop="datePublished" content="2016-06-17T17:41:57+08:00" />
+解决办法就是使用包管理工具，让项目引用的第三方库，列入到项目里面，进行版本管理，即可解决。"><meta itemprop="datePublished" content="2016-06-17T17:41:57+08:00" />
 <meta itemprop="dateModified" content="2016-06-17T17:41:57+08:00" />
-<meta itemprop="wordCount" content="2922">
-
-
-
-<meta itemprop="keywords" content="Golang," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="2916">
+<meta itemprop="keywords" content="Golang," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Golang的包管理实践"/>
 <meta name="twitter:description" content="Golang包管理带来的问题
 Golang包管理，在团队成员比较少的情况下，Golang自带的包管理工具 go get 足已满足使用，但是由于服务端团队在急速扩张，同学越来越多，对于Golang包管理就会带来以下问题：
@@ -116,39 +111,49 @@ Golang包管理，在团队成员比较少的情况下，Golang自带的包管�
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
     <a href="/">
-        <li class="mobile-menu-item">Home</li>
+        <li class="mobile-menu-item">首页</li>
       </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
+        <li class="mobile-menu-item">全部文章</li>
       </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
+        <li class="mobile-menu-item">标签</li>
       </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
+        <li class="mobile-menu-item">分类</li>
       </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
+        <li class="mobile-menu-item">关于</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">Philipbo&#39;s Blog</a>
 </div>
 
+
+
+
+
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="/post/">全部文章</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
+        <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
+        <a class="menu-item-link" href="/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
+        <a class="menu-item-link" href="/about/">关于</a>
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -164,7 +169,7 @@ Golang包管理，在团队成员比较少的情况下，Golang自带的包管�
         <div class="post-category">
             <a href="/categories/golang/"> Golang </a>
             </div>
-          <span class="more-meta"> 约 2922 字 </span>
+          <span class="more-meta"> 约 2916 字 </span>
           <span class="more-meta"> 预计阅读 6 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -224,7 +229,7 @@ Golang包管理，在团队成员比较少的情况下，Golang自带的包管�
 <strong>main.go</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -237,24 +242,22 @@ Golang包管理，在团队成员比较少的情况下，Golang自带的包管�
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
-</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
-  <span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/ping&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
-      <span class="s">&#34;message&#34;</span><span class="p">:</span> <span class="s">&#34;pong&#34;</span><span class="p">,</span>
-    <span class="p">})</span>
-  <span class="p">})</span>
-  <span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span> <span class="c1">// listen and server on 0.0.0.0:8080
-</span><span class="c1"></span><span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nf">Default</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nf">GET</span><span class="p">(</span><span class="s">&#34;/ping&#34;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nf">JSON</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s">&#34;message&#34;</span><span class="p">:</span> <span class="s">&#34;pong&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">r</span><span class="p">.</span><span class="nf">Run</span><span class="p">()</span> <span class="c1">// listen and server on 0.0.0.0:8080
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="godep">godep</h3>
 <ol>
@@ -265,7 +268,7 @@ Golang包管理，在团队成员比较少的情况下，Golang自带的包管�
 <p><strong>安装</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -288,35 +291,35 @@ Golang包管理，在团队成员比较少的情况下，Golang自带的包管�
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ go get -u github.com/tools/godep
-   
-$ godep <span class="nb">help</span>
-Godep is a tool <span class="k">for</span> managing Go package dependencies.
-   
-Usage:
-   
-  godep <span class="nb">command</span> <span class="o">[</span>arguments<span class="o">]</span>
-   
-The commands are:
-   
-    save     list and copy dependencies into Godeps
-    go       run the go tool with saved dependencies
-    get      download and install packages with specified dependencies
-    path     print GOPATH <span class="k">for</span> dependency code
-    restore  check out listed dependency versions in GOPATH
-    update   update selected packages or the go version
-    diff     shows the diff between current and previously saved <span class="nb">set</span> of dependencies
-    version  show version info
-   
-Use <span class="s2">&#34;godep help [command]&#34;</span> <span class="k">for</span> more information about a command.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ go get -u github.com/tools/godep
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ godep <span class="nb">help</span>
+</span></span><span class="line"><span class="cl">Godep is a tool <span class="k">for</span> managing Go package dependencies.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  godep <span class="nb">command</span> <span class="o">[</span>arguments<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">The commands are:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    save     list and copy dependencies into Godeps
+</span></span><span class="line"><span class="cl">    go       run the go tool with saved dependencies
+</span></span><span class="line"><span class="cl">    get      download and install packages with specified dependencies
+</span></span><span class="line"><span class="cl">    path     print GOPATH <span class="k">for</span> dependency code
+</span></span><span class="line"><span class="cl">    restore  check out listed dependency versions in GOPATH
+</span></span><span class="line"><span class="cl">    update   update selected packages or the go version
+</span></span><span class="line"><span class="cl">    diff     shows the diff between current and previously saved <span class="nb">set</span> of dependencies
+</span></span><span class="line"><span class="cl">    version  show version info
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Use <span class="s2">&#34;godep help [command]&#34;</span> <span class="k">for</span> more information about a command.
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p><strong>用法</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -345,45 +348,43 @@ Use <span class="s2">&#34;godep help [command]&#34;</span> <span class="k">for</
 </span><span class="lnt">27
 </span><span class="lnt">28
 </span><span class="lnt">29
-</span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="err">#</span> <span class="nx">add</span> <span class="kn">package</span>
-<span class="err">$</span> <span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="p">&lt;</span><span class="kn">package</span> <span class="nx">name</span><span class="p">&gt;</span> <span class="err">#</span><span class="nx">视具体情况而定</span>
-<span class="err">$</span> <span class="nx">godep</span> <span class="nx">save</span>
-   
-<span class="err">$</span> <span class="nx">tree</span> <span class="o">-</span><span class="nx">d</span>
-<span class="p">.</span>
-<span class="err">├──</span> <span class="nx">Godeps</span>
-<span class="err">└──</span> <span class="nx">vendor</span>
-    <span class="err">├──</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span>
-    <span class="err">│</span>   <span class="err">├──</span> <span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span>
-    <span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="nx">gin</span>
-    <span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="nx">binding</span>
-    <span class="err">│</span>   <span class="err">│</span>       <span class="err">└──</span> <span class="nx">render</span>
-    <span class="err">│</span>   <span class="err">├──</span> <span class="nx">golang</span>
-    <span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="nx">protobuf</span>
-    <span class="err">│</span>   <span class="err">│</span>       <span class="err">└──</span> <span class="nx">proto</span>
-    <span class="err">│</span>   <span class="err">└──</span> <span class="nx">manucorporat</span>
-    <span class="err">│</span>       <span class="err">└──</span> <span class="nx">sse</span>
-    <span class="err">├──</span> <span class="nx">golang</span><span class="p">.</span><span class="nx">org</span>
-    <span class="err">│</span>   <span class="err">└──</span> <span class="nx">x</span>
-    <span class="err">│</span>       <span class="err">└──</span> <span class="nx">net</span>
-    <span class="err">│</span>           <span class="err">└──</span> <span class="nx">context</span>
-    <span class="err">└──</span> <span class="nx">gopkg</span><span class="p">.</span><span class="nx">in</span>
-        <span class="err">└──</span> <span class="k">go</span><span class="o">-</span><span class="nx">playground</span>
-            <span class="err">└──</span> <span class="nx">validator</span><span class="p">.</span><span class="nx">v8</span>
-   
-<span class="err">#</span> <span class="nx">update</span> <span class="kn">package</span>
-<span class="err">$</span> <span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="p">&lt;</span><span class="kn">package</span> <span class="nx">name</span><span class="p">&gt;</span>
-<span class="err">$</span> <span class="nx">godep</span> <span class="nx">update</span> <span class="p">&lt;</span><span class="kn">package</span> <span class="nx">name</span><span class="p">&gt;</span>
-   
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">add</span> <span class="kn">package</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span> <span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="p">&lt;</span><span class="kn">package</span> <span class="nx">name</span><span class="p">&gt;</span> <span class="err">#</span><span class="nx">视具体情况而定</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span> <span class="nx">godep</span> <span class="nx">save</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">$</span> <span class="nx">tree</span> <span class="o">-</span><span class="nx">d</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="nx">Godeps</span>
+</span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="nx">vendor</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">├──</span> <span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="nx">gin</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="nx">binding</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">│</span>       <span class="err">└──</span> <span class="nx">render</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">├──</span> <span class="nx">golang</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="nx">protobuf</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">│</span>       <span class="err">└──</span> <span class="nx">proto</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">└──</span> <span class="nx">manucorporat</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>       <span class="err">└──</span> <span class="nx">sse</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="nx">golang</span><span class="p">.</span><span class="nx">org</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">└──</span> <span class="nx">x</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>       <span class="err">└──</span> <span class="nx">net</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>           <span class="err">└──</span> <span class="nx">context</span>
+</span></span><span class="line"><span class="cl">    <span class="err">└──</span> <span class="nx">gopkg</span><span class="p">.</span><span class="nx">in</span>
+</span></span><span class="line"><span class="cl">        <span class="err">└──</span> <span class="k">go</span><span class="o">-</span><span class="nx">playground</span>
+</span></span><span class="line"><span class="cl">            <span class="err">└──</span> <span class="nx">validator</span><span class="p">.</span><span class="nx">v8</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="nx">update</span> <span class="kn">package</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span> <span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="p">&lt;</span><span class="kn">package</span> <span class="nx">name</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span> <span class="nx">godep</span> <span class="nx">update</span> <span class="p">&lt;</span><span class="kn">package</span> <span class="nx">name</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成Godeps/Godeps.json文件, 不要修改。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -403,25 +404,25 @@ Use <span class="s2">&#34;godep help [command]&#34;</span> <span class="k">for</
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-  &#34;ImportPath&#34;: &#34;me.com/testpkg&#34;,
-  &#34;GoVersion&#34;: &#34;go1.6&#34;,
-  &#34;GodepVersion&#34;: &#34;v74&#34;,
-  &#34;Deps&#34;: [
-    {
-      &#34;ImportPath&#34;: &#34;github.com/gin-gonic/gin&#34;,
-      &#34;Comment&#34;: &#34;v1.0rc1-219-g3d002e3&#34;,
-      &#34;Rev&#34;: &#34;3d002e382355cafc15d706b92899b1961d5b79e9&#34;
-    },
-    {
-      &#34;ImportPath&#34;: &#34;github.com/gin-gonic/gin/binding&#34;,
-      &#34;Comment&#34;: &#34;v1.0rc1-219-g3d002e3&#34;,
-      &#34;Rev&#34;: &#34;3d002e382355cafc15d706b92899b1961d5b79e9&#34;
-    },
-    ......
-  ]
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;ImportPath&#34;: &#34;me.com/testpkg&#34;,
+</span></span><span class="line"><span class="cl">  &#34;GoVersion&#34;: &#34;go1.6&#34;,
+</span></span><span class="line"><span class="cl">  &#34;GodepVersion&#34;: &#34;v74&#34;,
+</span></span><span class="line"><span class="cl">  &#34;Deps&#34;: [
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;ImportPath&#34;: &#34;github.com/gin-gonic/gin&#34;,
+</span></span><span class="line"><span class="cl">      &#34;Comment&#34;: &#34;v1.0rc1-219-g3d002e3&#34;,
+</span></span><span class="line"><span class="cl">      &#34;Rev&#34;: &#34;3d002e382355cafc15d706b92899b1961d5b79e9&#34;
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;ImportPath&#34;: &#34;github.com/gin-gonic/gin/binding&#34;,
+</span></span><span class="line"><span class="cl">      &#34;Comment&#34;: &#34;v1.0rc1-219-g3d002e3&#34;,
+</span></span><span class="line"><span class="cl">      &#34;Rev&#34;: &#34;3d002e382355cafc15d706b92899b1961d5b79e9&#34;
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    ......
+</span></span><span class="line"><span class="cl">  ]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行 <code>go restore</code>时，会按照Godeps/Godeps.json内列表，依次执行go get -d -v 来下载对应依赖包到GOPATH路径下。</p>
 </li>
@@ -443,7 +444,7 @@ Use <span class="s2">&#34;godep help [command]&#34;</span> <span class="k">for</
 <p><strong>安装</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -461,29 +462,27 @@ Use <span class="s2">&#34;godep help [command]&#34;</span> <span class="k">for</
 </span><span class="lnt">16
 </span><span class="lnt">17
 </span><span class="lnt">18
-</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ go get -u github.com/FiloSottile/gvt
-   
-<span class="c1"># 安装完成后，运行`gvt help`，如下安装成功</span>
-$ gvt <span class="nb">help</span>
-gvt, a simple go vendoring tool based on gb-vendor.
-   
-Usage:
-        gvt <span class="nb">command</span> <span class="o">[</span>arguments<span class="o">]</span>
-   
-The commands are:
-   
-        fetch       fetch a remote dependency
-        restore     restore dependencies from manifest
-        update      update a <span class="nb">local</span> dependency
-        list        list dependencies one per line
-        delete      delete a <span class="nb">local</span> dependency
-   
-Use <span class="s2">&#34;gvt help [command]&#34;</span> <span class="k">for</span> more information about a command.
-   
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ go get -u github.com/FiloSottile/gvt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装完成后，运行`gvt help`，如下安装成功</span>
+</span></span><span class="line"><span class="cl">$ gvt <span class="nb">help</span>
+</span></span><span class="line"><span class="cl">gvt, a simple go vendoring tool based on gb-vendor.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">        gvt <span class="nb">command</span> <span class="o">[</span>arguments<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">The commands are:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        fetch       fetch a remote dependency
+</span></span><span class="line"><span class="cl">        restore     restore dependencies from manifest
+</span></span><span class="line"><span class="cl">        update      update a <span class="nb">local</span> dependency
+</span></span><span class="line"><span class="cl">        list        list dependencies one per line
+</span></span><span class="line"><span class="cl">        delete      delete a <span class="nb">local</span> dependency
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Use <span class="s2">&#34;gvt help [command]&#34;</span> <span class="k">for</span> more information about a command.
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -491,7 +490,7 @@ Use <span class="s2">&#34;gvt help [command]&#34;</span> <span class="k">for</sp
 <p>在想使用<code>go get</code>时，使用<code>gvt fetch</code>代替</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -522,42 +521,42 @@ Use <span class="s2">&#34;gvt help [command]&#34;</span> <span class="k">for</sp
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gvt fetch github.com/gin-gonic/gin
-2016/06/17 18:42:25 Fetching: github.com/gin-gonic/gin
-2016/06/17 18:42:33 · Fetching recursive dependency: golang.org/x/net/context
-....
-   
-   
-$ tree -d
-.
-└── vendor
-    ├── github.com
-    │   ├── dustin
-    │   │   └── go-broadcast
-    │   ├── gin-gonic
-    │   │   └── gin
-    │   │       ├── binding
-    │   │       │   └── example
-    │   │       ├── examples
-    │   │       │   ├── app-engine
-    │   │       │   ├── basic
-    │   │       │   ├── realtime-advanced
-    │   │       │   └── realtime-chat
-    │   │       ├── ginS
-    │   │       └── render
-    │   ├── golang
-    │   │   └── protobuf
-    │   │       ├── proto
-    │   │       │   └── proto3_proto
-    │   │       └── ptypes
-    │   │           └── any
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gvt fetch github.com/gin-gonic/gin
+</span></span><span class="line"><span class="cl">2016/06/17 18:42:25 Fetching: github.com/gin-gonic/gin
+</span></span><span class="line"><span class="cl">2016/06/17 18:42:33 · Fetching recursive dependency: golang.org/x/net/context
+</span></span><span class="line"><span class="cl">....
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ tree -d
+</span></span><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">└── vendor
+</span></span><span class="line"><span class="cl">    ├── github.com
+</span></span><span class="line"><span class="cl">    │   ├── dustin
+</span></span><span class="line"><span class="cl">    │   │   └── go-broadcast
+</span></span><span class="line"><span class="cl">    │   ├── gin-gonic
+</span></span><span class="line"><span class="cl">    │   │   └── gin
+</span></span><span class="line"><span class="cl">    │   │       ├── binding
+</span></span><span class="line"><span class="cl">    │   │       │   └── example
+</span></span><span class="line"><span class="cl">    │   │       ├── examples
+</span></span><span class="line"><span class="cl">    │   │       │   ├── app-engine
+</span></span><span class="line"><span class="cl">    │   │       │   ├── basic
+</span></span><span class="line"><span class="cl">    │   │       │   ├── realtime-advanced
+</span></span><span class="line"><span class="cl">    │   │       │   └── realtime-chat
+</span></span><span class="line"><span class="cl">    │   │       ├── ginS
+</span></span><span class="line"><span class="cl">    │   │       └── render
+</span></span><span class="line"><span class="cl">    │   ├── golang
+</span></span><span class="line"><span class="cl">    │   │   └── protobuf
+</span></span><span class="line"><span class="cl">    │   │       ├── proto
+</span></span><span class="line"><span class="cl">    │   │       │   └── proto3_proto
+</span></span><span class="line"><span class="cl">    │   │       └── ptypes
+</span></span><span class="line"><span class="cl">    │   │           └── any
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>manifest文件</strong>
 <code>gvt restore</code> 以此manifest为准,下面部分源码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -581,29 +580,29 @@ $ tree -d
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
-    &#34;version&#34;: 0,
-    &#34;dependencies&#34;: [
-        {
-            &#34;importpath&#34;: &#34;github.com/dustin/go-broadcast&#34;,
-            &#34;repository&#34;: &#34;https://github.com/dustin/go-broadcast&#34;,
-            &#34;vcs&#34;: &#34;git&#34;,
-            &#34;revision&#34;: &#34;3bdf6d4a7164a50bc19d5f230e2981d87d2584f1&#34;,
-            &#34;branch&#34;: &#34;master&#34;,
-            &#34;notests&#34;: true
-        },
-        {
-            &#34;importpath&#34;: &#34;github.com/gin-gonic/gin&#34;,
-            &#34;repository&#34;: &#34;https://github.com/gin-gonic/gin&#34;,
-            &#34;vcs&#34;: &#34;git&#34;,
-            &#34;revision&#34;: &#34;f931d1ea80ae95a6fc739213cdd9399bd2967fb6&#34;,
-            &#34;branch&#34;: &#34;develop&#34;,
-            &#34;notests&#34;: true
-        },
-        ....
-    ]    
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    &#34;version&#34;: 0,
+</span></span><span class="line"><span class="cl">    &#34;dependencies&#34;: [
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            &#34;importpath&#34;: &#34;github.com/dustin/go-broadcast&#34;,
+</span></span><span class="line"><span class="cl">            &#34;repository&#34;: &#34;https://github.com/dustin/go-broadcast&#34;,
+</span></span><span class="line"><span class="cl">            &#34;vcs&#34;: &#34;git&#34;,
+</span></span><span class="line"><span class="cl">            &#34;revision&#34;: &#34;3bdf6d4a7164a50bc19d5f230e2981d87d2584f1&#34;,
+</span></span><span class="line"><span class="cl">            &#34;branch&#34;: &#34;master&#34;,
+</span></span><span class="line"><span class="cl">            &#34;notests&#34;: true
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            &#34;importpath&#34;: &#34;github.com/gin-gonic/gin&#34;,
+</span></span><span class="line"><span class="cl">            &#34;repository&#34;: &#34;https://github.com/gin-gonic/gin&#34;,
+</span></span><span class="line"><span class="cl">            &#34;vcs&#34;: &#34;git&#34;,
+</span></span><span class="line"><span class="cl">            &#34;revision&#34;: &#34;f931d1ea80ae95a6fc739213cdd9399bd2967fb6&#34;,
+</span></span><span class="line"><span class="cl">            &#34;branch&#34;: &#34;develop&#34;,
+</span></span><span class="line"><span class="cl">            &#34;notests&#34;: true
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        ....
+</span></span><span class="line"><span class="cl">    ]    
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -629,7 +628,7 @@ $ tree -d
 <p><strong>用法</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -643,45 +642,41 @@ $ tree -d
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
-</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="err">$</span> <span class="nx">glide</span> <span class="nx">create</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Generating</span> <span class="nx">a</span> <span class="nx">YAML</span> <span class="nx">configuration</span> <span class="nx">file</span> <span class="nx">and</span> <span class="nx">guessing</span> <span class="nx">the</span> <span class="nx">dependencies</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Attempting</span> <span class="nx">to</span> <span class="kn">import</span> <span class="nx">from</span> <span class="nx">other</span> <span class="kn">package</span> <span class="nf">managers</span> <span class="p">(</span><span class="nx">use</span> <span class="o">--</span><span class="nx">skip</span><span class="o">-</span><span class="kn">import</span> <span class="nx">to</span> <span class="nx">skip</span><span class="p">)</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Found</span> <span class="nx">reference</span> <span class="nx">to</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span><span class="o">/</span><span class="nx">gin</span>
-   
-<span class="err">$</span> <span class="nx">glide</span> <span class="nx">install</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Lock</span> <span class="nf">file</span> <span class="p">(</span><span class="nx">glide</span><span class="p">.</span><span class="nx">lock</span><span class="p">)</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">exist</span><span class="p">.</span> <span class="nx">Performing</span> <span class="nx">update</span><span class="p">.</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Downloading</span> <span class="nx">dependencies</span><span class="p">.</span> <span class="nx">Please</span> <span class="nx">wait</span><span class="o">...</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Fetching</span> <span class="nx">updates</span> <span class="k">for</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span><span class="o">/</span><span class="nx">gin</span><span class="p">.</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Resolving</span> <span class="nx">imports</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Found</span> <span class="nx">Godeps</span><span class="p">.</span><span class="nx">json</span> <span class="nx">file</span> <span class="nx">in</span> <span class="nx">vendor</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span><span class="o">/</span><span class="nx">gin</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Fetching</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">manucorporat</span><span class="o">/</span><span class="nx">sse</span> <span class="nx">into</span> <span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">zbo</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">me</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">testpkg</span><span class="o">/</span><span class="nx">vendor</span>
-<span class="o">......</span><span class="p">..</span>
-<span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Project</span> <span class="nx">relies</span> <span class="nx">on</span> <span class="mi">6</span> <span class="nx">dependencies</span><span class="p">.</span>
-   
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="err">$</span> <span class="nx">glide</span> <span class="nx">create</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Generating</span> <span class="nx">a</span> <span class="nx">YAML</span> <span class="nx">configuration</span> <span class="nx">file</span> <span class="nx">and</span> <span class="nx">guessing</span> <span class="nx">the</span> <span class="nx">dependencies</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Attempting</span> <span class="nx">to</span> <span class="kn">import</span> <span class="nx">from</span> <span class="nx">other</span> <span class="kn">package</span> <span class="nf">managers</span> <span class="p">(</span><span class="nx">use</span> <span class="o">--</span><span class="nx">skip</span><span class="o">-</span><span class="kn">import</span> <span class="nx">to</span> <span class="nx">skip</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Found</span> <span class="nx">reference</span> <span class="nx">to</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span><span class="o">/</span><span class="nx">gin</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">$</span> <span class="nx">glide</span> <span class="nx">install</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Lock</span> <span class="nf">file</span> <span class="p">(</span><span class="nx">glide</span><span class="p">.</span><span class="nx">lock</span><span class="p">)</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">exist</span><span class="p">.</span> <span class="nx">Performing</span> <span class="nx">update</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Downloading</span> <span class="nx">dependencies</span><span class="p">.</span> <span class="nx">Please</span> <span class="nx">wait</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Fetching</span> <span class="nx">updates</span> <span class="k">for</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span><span class="o">/</span><span class="nx">gin</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Resolving</span> <span class="nx">imports</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Found</span> <span class="nx">Godeps</span><span class="p">.</span><span class="nx">json</span> <span class="nx">file</span> <span class="nx">in</span> <span class="nx">vendor</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gin</span><span class="o">-</span><span class="nx">gonic</span><span class="o">/</span><span class="nx">gin</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Fetching</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">manucorporat</span><span class="o">/</span><span class="nx">sse</span> <span class="nx">into</span> <span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">zbo</span><span class="o">/</span><span class="k">go</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">me</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">testpkg</span><span class="o">/</span><span class="nx">vendor</span>
+</span></span><span class="line"><span class="cl"><span class="o">......</span><span class="p">..</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">INFO</span><span class="p">]</span> <span class="nx">Project</span> <span class="nx">relies</span> <span class="nx">on</span> <span class="mi">6</span> <span class="nx">dependencies</span><span class="p">.</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>glide.yaml  <a href="http://glide.readthedocs.io/en/latest/glide.yaml/">详细说明</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">package: me.com/testpkg
-import:
-- package: github.com/gin-gonic/gin
-   
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">package: me.com/testpkg
+</span></span><span class="line"><span class="cl">import:
+</span></span><span class="line"><span class="cl">- package: github.com/gin-gonic/gin
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>glide.lock</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -706,30 +701,30 @@ import:
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">hash: 7772f906f51de7fa50761d0ed254e12e83429979a6621bef4fb164b9051df88d
-updated: 2016-06-20T11:42:35.002094371+08:00
-imports:
-- name: github.com/gin-gonic/gin
-  version: f931d1ea80ae95a6fc739213cdd9399bd2967fb6
-  subpackages:
-  - binding
-  - render
-- name: github.com/golang/protobuf
-  version: 2402d76f3d41f928c7902a765dfc872356dd3aad
-  subpackages:
-  - proto
-- name: github.com/manucorporat/sse
-  version: ee05b128a739a0fb76c7ebd3ae4810c1de808d6d
-- name: golang.org/x/net
-  version: f315505cf3349909cdf013ea56690da34e96a451
-  subpackages:
-  - context
-- name: gopkg.in/go-playground/validator.v8
-  version: c193cecd124b5cc722d7ee5538e945bdb3348435
-- name: gopkg.in/yaml.v2
-  version: a83829b6f1293c91addabc89d0571c246397bbf4
-devImports: []
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">hash: 7772f906f51de7fa50761d0ed254e12e83429979a6621bef4fb164b9051df88d
+</span></span><span class="line"><span class="cl">updated: 2016-06-20T11:42:35.002094371+08:00
+</span></span><span class="line"><span class="cl">imports:
+</span></span><span class="line"><span class="cl">- name: github.com/gin-gonic/gin
+</span></span><span class="line"><span class="cl">  version: f931d1ea80ae95a6fc739213cdd9399bd2967fb6
+</span></span><span class="line"><span class="cl">  subpackages:
+</span></span><span class="line"><span class="cl">  - binding
+</span></span><span class="line"><span class="cl">  - render
+</span></span><span class="line"><span class="cl">- name: github.com/golang/protobuf
+</span></span><span class="line"><span class="cl">  version: 2402d76f3d41f928c7902a765dfc872356dd3aad
+</span></span><span class="line"><span class="cl">  subpackages:
+</span></span><span class="line"><span class="cl">  - proto
+</span></span><span class="line"><span class="cl">- name: github.com/manucorporat/sse
+</span></span><span class="line"><span class="cl">  version: ee05b128a739a0fb76c7ebd3ae4810c1de808d6d
+</span></span><span class="line"><span class="cl">- name: golang.org/x/net
+</span></span><span class="line"><span class="cl">  version: f315505cf3349909cdf013ea56690da34e96a451
+</span></span><span class="line"><span class="cl">  subpackages:
+</span></span><span class="line"><span class="cl">  - context
+</span></span><span class="line"><span class="cl">- name: gopkg.in/go-playground/validator.v8
+</span></span><span class="line"><span class="cl">  version: c193cecd124b5cc722d7ee5538e945bdb3348435
+</span></span><span class="line"><span class="cl">- name: gopkg.in/yaml.v2
+</span></span><span class="line"><span class="cl">  version: a83829b6f1293c91addabc89d0571c246397bbf4
+</span></span><span class="line"><span class="cl">devImports: []
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -755,7 +750,7 @@ devImports: []
 <p><strong>安装</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -778,41 +773,39 @@ devImports: []
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
-</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ go get github.com/mattn/gom
-   
-# 安装成功
-$ gom help
-Usage of gom:
- Tasks:
-   gom build   [options]   : Build with _vendor packages
-   gom install [options]   : Install bundled packages into _vendor directory, by default.
-                              GOM_VENDOR_NAME=. gom install [options], for regular src folder.
-   gom test    [options]   : Run tests with bundles
-   gom run     [options]   : Run go file with bundles
-   gom doc     [options]   : Run godoc for bundles
-   gom exec    [arguments] : Execute command with bundle environment
-   gom tool    [options]   : Run go tool with bundles
-   gom env     [arguments] : Run go env
-   gom fmt     [arguments] : Run go fmt
-   gom list    [arguments] : Run go list
-   gom vet     [arguments] : Run go vet
-   gom update              : Update all dependencies (Experiment)
-   gom gen travis-yml      : Generate .travis.yml which uses &#34;gom test&#34;
-   gom gen gomfile         : Scan packages from current directory as root
-                              recursively, and generate Gomfile
-   gom lock                : Generate Gomfile.lock
-   
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ go get github.com/mattn/gom
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 安装成功
+</span></span><span class="line"><span class="cl">$ gom help
+</span></span><span class="line"><span class="cl">Usage of gom:
+</span></span><span class="line"><span class="cl"> Tasks:
+</span></span><span class="line"><span class="cl">   gom build   [options]   : Build with _vendor packages
+</span></span><span class="line"><span class="cl">   gom install [options]   : Install bundled packages into _vendor directory, by default.
+</span></span><span class="line"><span class="cl">                              GOM_VENDOR_NAME=. gom install [options], for regular src folder.
+</span></span><span class="line"><span class="cl">   gom test    [options]   : Run tests with bundles
+</span></span><span class="line"><span class="cl">   gom run     [options]   : Run go file with bundles
+</span></span><span class="line"><span class="cl">   gom doc     [options]   : Run godoc for bundles
+</span></span><span class="line"><span class="cl">   gom exec    [arguments] : Execute command with bundle environment
+</span></span><span class="line"><span class="cl">   gom tool    [options]   : Run go tool with bundles
+</span></span><span class="line"><span class="cl">   gom env     [arguments] : Run go env
+</span></span><span class="line"><span class="cl">   gom fmt     [arguments] : Run go fmt
+</span></span><span class="line"><span class="cl">   gom list    [arguments] : Run go list
+</span></span><span class="line"><span class="cl">   gom vet     [arguments] : Run go vet
+</span></span><span class="line"><span class="cl">   gom update              : Update all dependencies (Experiment)
+</span></span><span class="line"><span class="cl">   gom gen travis-yml      : Generate .travis.yml which uses &#34;gom test&#34;
+</span></span><span class="line"><span class="cl">   gom gen gomfile         : Scan packages from current directory as root
+</span></span><span class="line"><span class="cl">                              recursively, and generate Gomfile
+</span></span><span class="line"><span class="cl">   gom lock                : Generate Gomfile.lock
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p><strong>用法</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -829,22 +822,22 @@ Usage of gom:
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ gom gen gomfile
-   
-$ cat Gomfile
-gom &#39;github.com/gin-gonic/gin&#39;, :commit =&gt; &#39;3d002e382355cafc15d706b92899b1961d5b79e9&#39;
-gom &#39;github.com/golang/protobuf&#39;, :commit =&gt; &#39;9e6977f30c91c78396e719e164e57f9287fff42c&#39;
-gom &#39;github.com/manucorporat/sse&#39;, :commit =&gt; &#39;ee05b128a739a0fb76c7ebd3ae4810c1de808d6d&#39;
-gom &#39;golang.org/x/net&#39;, :commit =&gt; &#39;e7da8edaa52631091740908acaf2c2d4c9b3ce90&#39;
-gom &#39;gopkg.in/go-playground/validator.v8&#39;, :commit =&gt; &#39;014792cf3e266caff1e916876be12282b33059e0&#39;
-   
-$ gom install
-downloading github.com/gin-gonic/gin
-downloading github.com/golang/protobuf
-downloading github.com/manucorporat/sse
-downloading golang.org/x/net
-downloading gopkg.in/go-playground/validator.v8
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ gom gen gomfile
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ cat Gomfile
+</span></span><span class="line"><span class="cl">gom &#39;github.com/gin-gonic/gin&#39;, :commit =&gt; &#39;3d002e382355cafc15d706b92899b1961d5b79e9&#39;
+</span></span><span class="line"><span class="cl">gom &#39;github.com/golang/protobuf&#39;, :commit =&gt; &#39;9e6977f30c91c78396e719e164e57f9287fff42c&#39;
+</span></span><span class="line"><span class="cl">gom &#39;github.com/manucorporat/sse&#39;, :commit =&gt; &#39;ee05b128a739a0fb76c7ebd3ae4810c1de808d6d&#39;
+</span></span><span class="line"><span class="cl">gom &#39;golang.org/x/net&#39;, :commit =&gt; &#39;e7da8edaa52631091740908acaf2c2d4c9b3ce90&#39;
+</span></span><span class="line"><span class="cl">gom &#39;gopkg.in/go-playground/validator.v8&#39;, :commit =&gt; &#39;014792cf3e266caff1e916876be12282b33059e0&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ gom install
+</span></span><span class="line"><span class="cl">downloading github.com/gin-gonic/gin
+</span></span><span class="line"><span class="cl">downloading github.com/golang/protobuf
+</span></span><span class="line"><span class="cl">downloading github.com/manucorporat/sse
+</span></span><span class="line"><span class="cl">downloading golang.org/x/net
+</span></span><span class="line"><span class="cl">downloading gopkg.in/go-playground/validator.v8
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>gom install</code>完成后，生成vendor目录，把第三方包放到此目录下。</p>
 </li>
@@ -879,36 +872,8 @@ downloading gopkg.in/go-playground/validator.v8
 </ol>
     </div>
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">Philipbo</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">
-        2016-06-17
-        
-    </span>
-  </p>
-  
-  
-</div>
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
-  <div class="qr-code">
     
-    <label class="qr-code-image" for="reward">
-        <img class="image" src="/img/reward/wechat.png">
-        <span>微信打赏</span>
-      </label>
-    <label class="qr-code-image" for="reward">
-        <img class="image" src="/img/reward/alipay.png">
-        <span>支付宝打赏</span>
-      </label>
-  </div>
-</div><footer class="post-footer">
+<footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/golang/">Golang</a>
           </div>
@@ -943,8 +908,6 @@ downloading gopkg.in/go-playground/validator.v8
     <footer id="footer" class="footer">
       <div class="social-links">
       <a href="mailto:xiaobo1128@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/bo406" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://www.facebook.com/bo406" class="iconfont icon-facebook" title="facebook"></a>
       <a href="https://github.com/philipbo" class="iconfont icon-github" title="github"></a>
   <a href="https://www.daizibo.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
@@ -967,7 +930,8 @@ downloading gopkg.in/go-playground/validator.v8
 
   <span class="copyright-year">
     &copy; 
-    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Philipbo</span>
+    2020 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Philipbo</span>
   </span>
 </div>
 
@@ -984,14 +948,14 @@ downloading gopkg.in/go-playground/validator.v8
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
   <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
-    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
 
 
 
-<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 <script type="application/javascript">
