@@ -2,15 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.daizibo.cn/about/</loc>
-    <lastmod>2020-11-26T15:33:46+08:00</lastmod>
+    <loc>https://www.daizibo.cn/categories/</loc>
+    <lastmod>2023-09-03T12:54:10+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://www.daizibo.cn/categories/</loc>
-    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
+    <loc>https://www.daizibo.cn/</loc>
+    <lastmod>2023-09-03T12:54:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/post/</loc>
+    <lastmod>2023-09-03T12:54:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/tags/rust/</loc>
+    <lastmod>2023-09-03T12:54:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/categories/rust/</loc>
+    <lastmod>2023-09-03T12:54:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/post/rust/rust_intro/</loc>
+    <lastmod>2023-09-03T12:54:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/tags/</loc>
+    <lastmod>2023-09-03T12:54:10+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/about/</loc>
+    <lastmod>2020-11-26T15:33:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,27 +73,6 @@
   
   <url>
     <loc>https://www.daizibo.cn/post/golang-array-slice/</loc>
-    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.daizibo.cn/</loc>
-    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.daizibo.cn/post/</loc>
-    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.daizibo.cn/tags/</loc>
     <lastmod>2016-07-25T12:07:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

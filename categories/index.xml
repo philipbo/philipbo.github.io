@@ -6,7 +6,16 @@
     <description>Recent content in Categories on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 25 Jul 2016 12:07:44 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Sep 2023 12:54:10 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust</title>
+      <link>https://www.daizibo.cn/categories/rust/</link>
+      <pubDate>Sun, 03 Sep 2023 12:54:10 +0800</pubDate>
+      
+      <guid>https://www.daizibo.cn/categories/rust/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Golang</title>
       <link>https://www.daizibo.cn/categories/golang/</link>

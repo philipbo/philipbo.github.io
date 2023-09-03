@@ -6,7 +6,47 @@
     <description>Recent content in Posts on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 25 Jul 2016 12:07:44 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Sep 2023 12:54:10 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust 入坑系列之前言 - 进入Rust的编程世界</title>
+      <link>https://www.daizibo.cn/post/rust/rust_intro/</link>
+      <pubDate>Sun, 03 Sep 2023 12:54:10 +0800</pubDate>
+      
+      <guid>https://www.daizibo.cn/post/rust/rust_intro/</guid>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;由于个人原因，主要是为了缓解焦虑，其次掌握一门新的编程语言，扩展视野等，希望未来能有用武之地，所以决定学习一门新的编程语言，这门编程语言就是Rust。&lt;/p&gt;
+&lt;h1 id=&#34;为什么是rust&#34;&gt;为什么是Rust&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Rust是由Mozilla员工“Graydon Hoare”于2006年开发的系统编程语言。他将这种语言描述为支持功能和命令范式的“安全，并发和实用的语言”。
+Rust 集表达力、高性能、内存安全于一身，在 1.0 版本发布后不久，口碑就一路高飞猛进，从 16 年起，连续 6 年成为 Stack Overflow 用户评选出来的最受喜爱的语言（2021/3/15 评选结果）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;性能&lt;/p&gt;
+&lt;p&gt;Rust非常快速且内存高效:没有运行时或垃圾收集器，它可以为性能关键型服务提供动力，在嵌入式设备上运行，并且很容易与其他语言集成。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;可靠&lt;/p&gt;
+&lt;p&gt;Rust 丰富的类型系统和所有权模型保证了内存安全和线程安全——使您能够在编译时消除许多类别的错误。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;生产率&lt;/p&gt;
+&lt;p&gt;Rust 拥有出色的文档、带有有用错误消息的友好编译器以及一流的工具——集成的包管理器和构建工具、具有自动完成和类型检查功能的智能多编辑器支持、自动格式化程序等等&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;强大且活跃的社区&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;被广泛使用， &lt;code&gt;Google, Microsoft, Firefox, Dropbox, Linux内核&lt;/code&gt;等等，都在生产环境上使用了Rust&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;避免从入门到放弃&#34;&gt;避免从入门到放弃&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Rust 对初学者似乎并不友好，被公认难入门，学习曲线相当陡峭。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;避免试一试的心态&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Go语言的array、slice，你需要知道的那些事儿</title>
       <link>https://www.daizibo.cn/post/golang-array-slice/</link>
