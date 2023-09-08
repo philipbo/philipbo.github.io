@@ -6,9 +6,27 @@
     <description>Recent content in Categories on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 03 Sep 2023 12:54:10 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Sep 2023 19:00:58 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Rust</title>
+      <title>docker</title>
+      <link>https://www.daizibo.cn/categories/docker/</link>
+      <pubDate>Fri, 08 Sep 2023 19:00:58 +0800</pubDate>
+      
+      <guid>https://www.daizibo.cn/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ops</title>
+      <link>https://www.daizibo.cn/categories/ops/</link>
+      <pubDate>Fri, 08 Sep 2023 19:00:58 +0800</pubDate>
+      
+      <guid>https://www.daizibo.cn/categories/ops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
       <link>https://www.daizibo.cn/categories/rust/</link>
       <pubDate>Sun, 03 Sep 2023 12:54:10 +0800</pubDate>
       
@@ -26,7 +44,7 @@
     </item>
     
     <item>
-      <title>Golang</title>
+      <title>golang</title>
       <link>https://www.daizibo.cn/categories/golang/</link>
       <pubDate>Mon, 25 Jul 2016 12:07:44 +0800</pubDate>
       
@@ -35,7 +53,7 @@
     </item>
     
     <item>
-      <title>Git</title>
+      <title>git</title>
       <link>https://www.daizibo.cn/categories/git/</link>
       <pubDate>Tue, 28 Jun 2016 14:41:49 +0800</pubDate>
       

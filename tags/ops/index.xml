@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ops on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</title>
+    <link>https://www.daizibo.cn/tags/ops/</link>
+    <description>Recent content in ops on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 08 Sep 2023 19:00:58 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/tags/ops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker - 清理Docker占用的磁盘空间</title>
+      <link>https://www.daizibo.cn/post/docker-clean-disk/</link>
+      <pubDate>Fri, 08 Sep 2023 19:00:58 +0800</pubDate>
+      
+      <guid>https://www.daizibo.cn/post/docker-clean-disk/</guid>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;今天突然收到测试服务器的磁盘空间不足的报警，处理这种报警还是比较有经验的，肯定是&lt;code&gt;docker&lt;/code&gt;的日志占用了太多的磁盘空间导致，
+之前处理后，比较懒，没有记录下来。&lt;/p&gt;
+&lt;p&gt;根据以往的处理经验，这种情况就很好解决，找到日志比较大的容器，删除日志，并调整日志级别即可解决。&lt;/p&gt;
+&lt;p&gt;我兼职打杂运维工作，我们团队所有组件都在云上飘着， 有很多的微服务组件，就需要使用服务发现，链路跟踪等配套设施，也少不了使用&lt;code&gt;docker&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;最近为了能够方便的扩容，我们决定使用&lt;code&gt;HashiCorp&lt;/code&gt;家的轻量级的服务编排，安装了他家的几个docker服务，并把服务发现替换成了&lt;code&gt;consul&lt;/code&gt;。
+运行了几天后，出现磁盘空间不足的报警。&lt;/p&gt;
+&lt;p&gt;当你使用&lt;code&gt;docker&lt;/code&gt;，并且容器运行比较久，程序又疯狂的输入后，就会导致&lt;code&gt;docker&lt;/code&gt;的日志占用磁盘空间太大，这时候就需要清理一下了。&lt;/p&gt;
+&lt;p&gt;根据以住的解决问题的思路，这次记录下来，方便以后查阅，也给其遇到此问题的小伙伴一个参考。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
