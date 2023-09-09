@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Go第三方库samber/lo - 一个类似 Lodash 的 Go 库，简化开发、提高效率 - Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Philipbo" /><meta name="description" content="介绍 在 Go 语言的开发过程中，我们经常需要使用一些常用的工具函数来简化代码编写和提高开发效率。 samber/lo 是一个类似于 JavaScript 中的 Lodash 库的 Go 语言库， 它提供了许多实用的函数和工具，帮助开发人员更轻松地处理各种常见任务。 本篇博文将简单介绍 samber/lo 库的特性和使用方法。
+特性 samber/lo 库是基于Go 1.18&#43;泛型的、Lodash风格的Go语言库。
+包含了非常多的方法，使得它成为一个强大且实用的工具库：
+slice 辅助方法 map 辅助方法 math 辅助方法 strings 辅助方法 tuples 辅助方法 channels 辅助方法 intersection 辅助方法 search 辅助方法 conditional 辅助方法 concurrency 等辅助方法 " /><meta name="keywords" content="Golang, samber/lo" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.118.2 with theme even" />
+
+
+<link rel="canonical" href="https://www.daizibo.cn/post/go-lib-samber-lo/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Go第三方库samber/lo - 一个类似 Lodash 的 Go 库，简化开发、提高效率" />
+<meta property="og:description" content="介绍
+在 Go 语言的开发过程中，我们经常需要使用一些常用的工具函数来简化代码编写和提高开发效率。
+samber/lo 是一个类似于 JavaScript 中的 Lodash 库的 Go 语言库，
+它提供了许多实用的函数和工具，帮助开发人员更轻松地处理各种常见任务。
+本篇博文将简单介绍 samber/lo 库的特性和使用方法。
+特性
+samber/lo 库是基于Go 1.18&#43;泛型的、Lodash风格的Go语言库。
+包含了非常多的方法，使得它成为一个强大且实用的工具库：
+
+slice 辅助方法
+map 辅助方法
+math 辅助方法
+strings 辅助方法
+tuples 辅助方法
+channels 辅助方法
+intersection 辅助方法
+search 辅助方法
+conditional 辅助方法
+concurrency 等辅助方法
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.daizibo.cn/post/go-lib-samber-lo/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-09-09T22:53:42+08:00" />
+<meta property="article:modified_time" content="2023-09-09T22:53:42+08:00" />
+<meta itemprop="name" content="Go第三方库samber/lo - 一个类似 Lodash 的 Go 库，简化开发、提高效率">
+<meta itemprop="description" content="介绍
+在 Go 语言的开发过程中，我们经常需要使用一些常用的工具函数来简化代码编写和提高开发效率。
+samber/lo 是一个类似于 JavaScript 中的 Lodash 库的 Go 语言库，
+它提供了许多实用的函数和工具，帮助开发人员更轻松地处理各种常见任务。
+本篇博文将简单介绍 samber/lo 库的特性和使用方法。
+特性
+samber/lo 库是基于Go 1.18&#43;泛型的、Lodash风格的Go语言库。
+包含了非常多的方法，使得它成为一个强大且实用的工具库：
+
+slice 辅助方法
+map 辅助方法
+math 辅助方法
+strings 辅助方法
+tuples 辅助方法
+channels 辅助方法
+intersection 辅助方法
+search 辅助方法
+conditional 辅助方法
+concurrency 等辅助方法
+"><meta itemprop="datePublished" content="2023-09-09T22:53:42+08:00" />
+<meta itemprop="dateModified" content="2023-09-09T22:53:42+08:00" />
+<meta itemprop="wordCount" content="484">
+<meta itemprop="keywords" content="golang," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go第三方库samber/lo - 一个类似 Lodash 的 Go 库，简化开发、提高效率"/>
+<meta name="twitter:description" content="介绍
+在 Go 语言的开发过程中，我们经常需要使用一些常用的工具函数来简化代码编写和提高开发效率。
+samber/lo 是一个类似于 JavaScript 中的 Lodash 库的 Go 语言库，
+它提供了许多实用的函数和工具，帮助开发人员更轻松地处理各种常见任务。
+本篇博文将简单介绍 samber/lo 库的特性和使用方法。
+特性
+samber/lo 库是基于Go 1.18&#43;泛型的、Lodash风格的Go语言库。
+包含了非常多的方法，使得它成为一个强大且实用的工具库：
+
+slice 辅助方法
+map 辅助方法
+math 辅助方法
+strings 辅助方法
+tuples 辅助方法
+channels 辅助方法
+intersection 辅助方法
+search 辅助方法
+conditional 辅助方法
+concurrency 等辅助方法
+"/>
+
+<!--[if lte IE 9]>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7658275507035376"
+        crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Philipbo&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">全部文章</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Philipbo&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">全部文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Go第三方库samber/lo - 一个类似 Lodash 的 Go 库，简化开发、提高效率</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-09-09 </span>
+        <div class="post-category">
+            <a href="/categories/golang/"> golang </a>
+            </div>
+          <span class="more-meta"> 约 484 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#特性">特性</a></li>
+    <li><a href="#使用">使用：</a></li>
+    <li><a href="#总结">总结：</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="介绍">介绍</h1>
+<p>在 Go 语言的开发过程中，我们经常需要使用一些常用的工具函数来简化代码编写和提高开发效率。
+<a href="https://github.com/samber/lo">samber/lo</a> 是一个类似于 JavaScript 中的 Lodash 库的 Go 语言库，
+它提供了许多实用的函数和工具，帮助开发人员更轻松地处理各种常见任务。
+本篇博文将简单介绍 samber/lo 库的特性和使用方法。</p>
+<h1 id="特性">特性</h1>
+<p><code>samber/lo</code> 库是基于Go 1.18+泛型的、Lodash风格的Go语言库。</p>
+<p>包含了非常多的方法，使得它成为一个强大且实用的工具库：</p>
+<ol>
+<li>slice 辅助方法</li>
+<li>map 辅助方法</li>
+<li>math 辅助方法</li>
+<li>strings 辅助方法</li>
+<li>tuples 辅助方法</li>
+<li>channels 辅助方法</li>
+<li>intersection 辅助方法</li>
+<li>search 辅助方法</li>
+<li>conditional 辅助方法</li>
+<li>concurrency 等辅助方法</li>
+</ol>
+<h1 id="使用">使用：</h1>
+<p>安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go get github.com/samber/lo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&#34;github.com/samber/lo&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/samber/lo&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">values</span> <span class="o">:=</span> <span class="nx">lo</span><span class="p">.</span><span class="nx">Values</span><span class="p">[</span><span class="kt">string</span><span class="p">,</span> <span class="kt">int</span><span class="p">](</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="s">&#34;foo&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#34;bar&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span> <span class="c1">// 输出 [1 2]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl">	<span class="nx">l</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 使用 samber/lo 库的 Map 函数将切片中的每个元素加倍
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">result</span> <span class="o">:=</span> <span class="nx">lo</span><span class="p">.</span><span class="nf">Map</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">x</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">_</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">	<span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="c1">// 输出 [2 4 6 8 10]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://go.dev/play/p/D19Rpj60om6">play</a></p>
+<h1 id="总结">总结：</h1>
+<p>samber/lo 是一个类似于 Lodash 的 Go 库，提供了丰富的函数和工具，
+帮助开发人员更轻松地处理常见任务。通过函数式编程风格、slice处理、map处理、 集合操作，搜索操作等特性，
+samber/lo 可以大大简化开发过程，提高代码的可读性和可维护性。</p>
+<p>更多用法自己去 <a href="https://github.com/samber/lo">https://github.com/samber/lo</a>探索吧。</p>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/docker-clean-disk/">
+            <span class="next-text nav-default">Docker - 清理Docker占用的磁盘空间</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="philipbo/myblog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:xiaobo1128@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/philipbo" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.daizibo.cn/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Philipbo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-78578703-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?6c6616b9444b8bc78d9cbf2eb6550d7e";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

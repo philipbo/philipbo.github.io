@@ -3,7 +3,49 @@
   
   <url>
     <loc>https://www.daizibo.cn/categories/</loc>
-    <lastmod>2023-09-08T19:00:58+08:00</lastmod>
+    <lastmod>2023-09-09T22:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/tags/golang/</loc>
+    <lastmod>2023-09-09T22:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/categories/golang/</loc>
+    <lastmod>2023-09-09T22:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/post/go-lib-samber-lo/</loc>
+    <lastmod>2023-09-09T22:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/</loc>
+    <lastmod>2023-09-09T22:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/post/</loc>
+    <lastmod>2023-09-09T22:53:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.daizibo.cn/tags/</loc>
+    <lastmod>2023-09-09T22:53:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -38,27 +80,6 @@
   
   <url>
     <loc>https://www.daizibo.cn/categories/ops/</loc>
-    <lastmod>2023-09-08T19:00:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.daizibo.cn/</loc>
-    <lastmod>2023-09-08T19:00:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.daizibo.cn/post/</loc>
-    <lastmod>2023-09-08T19:00:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.daizibo.cn/tags/</loc>
     <lastmod>2023-09-08T19:00:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -102,20 +123,6 @@
   <url>
     <loc>https://www.daizibo.cn/about/</loc>
     <lastmod>2020-11-26T15:33:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.daizibo.cn/tags/golang/</loc>
-    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.daizibo.cn/categories/golang/</loc>
-    <lastmod>2016-07-25T12:07:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

@@ -6,7 +6,35 @@
     <description>Recent content on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 08 Sep 2023 19:00:58 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Sep 2023 22:53:42 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go第三方库samber/lo - 一个类似 Lodash 的 Go 库，简化开发、提高效率</title>
+      <link>https://www.daizibo.cn/post/go-lib-samber-lo/</link>
+      <pubDate>Sat, 09 Sep 2023 22:53:42 +0800</pubDate>
+      
+      <guid>https://www.daizibo.cn/post/go-lib-samber-lo/</guid>
+      <description>&lt;h1 id=&#34;介绍&#34;&gt;介绍&lt;/h1&gt;
+&lt;p&gt;在 Go 语言的开发过程中，我们经常需要使用一些常用的工具函数来简化代码编写和提高开发效率。
+&lt;a href=&#34;https://github.com/samber/lo&#34;&gt;samber/lo&lt;/a&gt; 是一个类似于 JavaScript 中的 Lodash 库的 Go 语言库，
+它提供了许多实用的函数和工具，帮助开发人员更轻松地处理各种常见任务。
+本篇博文将简单介绍 samber/lo 库的特性和使用方法。&lt;/p&gt;
+&lt;h1 id=&#34;特性&#34;&gt;特性&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;samber/lo&lt;/code&gt; 库是基于Go 1.18+泛型的、Lodash风格的Go语言库。&lt;/p&gt;
+&lt;p&gt;包含了非常多的方法，使得它成为一个强大且实用的工具库：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;slice 辅助方法&lt;/li&gt;
+&lt;li&gt;map 辅助方法&lt;/li&gt;
+&lt;li&gt;math 辅助方法&lt;/li&gt;
+&lt;li&gt;strings 辅助方法&lt;/li&gt;
+&lt;li&gt;tuples 辅助方法&lt;/li&gt;
+&lt;li&gt;channels 辅助方法&lt;/li&gt;
+&lt;li&gt;intersection 辅助方法&lt;/li&gt;
+&lt;li&gt;search 辅助方法&lt;/li&gt;
+&lt;li&gt;conditional 辅助方法&lt;/li&gt;
+&lt;li&gt;concurrency 等辅助方法&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
     <item>
       <title>Docker - 清理Docker占用的磁盘空间</title>
       <link>https://www.daizibo.cn/post/docker-clean-disk/</link>
