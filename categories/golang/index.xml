@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>golang on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</title>
-    <link>https://www.daizibo.cn/categories/golang/</link>
+    <link>https://daizibo.cn/categories/golang/</link>
     <description>Recent content in golang on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Sep 2023 22:53:42 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Sep 2023 22:53:42 +0800</lastBuildDate><atom:link href="https://daizibo.cn/categories/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go第三方库samber/lo - 一个类似 Lodash 的 Go 库，简化开发、提高效率</title>
-      <link>https://www.daizibo.cn/post/go-lib-samber-lo/</link>
+      <link>https://daizibo.cn/post/go-lib-samber-lo/</link>
       <pubDate>Sat, 09 Sep 2023 22:53:42 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/go-lib-samber-lo/</guid>
+      <guid>https://daizibo.cn/post/go-lib-samber-lo/</guid>
       <description>&lt;h1 id=&#34;介绍&#34;&gt;介绍&lt;/h1&gt;
 &lt;p&gt;在 Go 语言的开发过程中，我们经常需要使用一些常用的工具函数来简化代码编写和提高开发效率。
 &lt;a href=&#34;https://github.com/samber/lo&#34;&gt;samber/lo&lt;/a&gt; 是一个类似于 JavaScript 中的 Lodash 库的 Go 语言库，
@@ -37,10 +37,10 @@
     
     <item>
       <title>Go语言的array、slice，你需要知道的那些事儿</title>
-      <link>https://www.daizibo.cn/post/golang-array-slice/</link>
+      <link>https://daizibo.cn/post/golang-array-slice/</link>
       <pubDate>Mon, 25 Jul 2016 12:07:44 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/golang-array-slice/</guid>
+      <guid>https://daizibo.cn/post/golang-array-slice/</guid>
       <description>&lt;p&gt;Go语言中的&lt;code&gt;array&lt;/code&gt;、&lt;code&gt;slice&lt;/code&gt;，你真的了解了吗？先看下段代码，如果你心中的结果都答对了，并且能说出具体原因（不是蒙对的:)）,那么你就可以不用在这里浪费时间了.
 这段代码也让我反思自己，文档认真看了吗？看过文档后记住了吗？（不是过个几天就忘了）反复看过文档吗？我回答自己：认真看了，当时记住了，没有反复看过，来增强记忆。从现起改正自己吧。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;不啰嗦了，直接上代码:&lt;/strong&gt;&lt;/p&gt;
@@ -92,20 +92,20 @@
     
     <item>
       <title>Go语言的defer那点事</title>
-      <link>https://www.daizibo.cn/post/golang-defer/</link>
+      <link>https://daizibo.cn/post/golang-defer/</link>
       <pubDate>Thu, 21 Jul 2016 13:50:22 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/golang-defer/</guid>
+      <guid>https://daizibo.cn/post/golang-defer/</guid>
       <description>&lt;p&gt;Go语言的&lt;code&gt;defer&lt;/code&gt;语句提供了强大的机制，通常用于简化执行各种清理操作，释放锁等操作，例如能够保证打开的文件，肯定被关闭，那你真的理解&lt;code&gt;defer&lt;/code&gt;了吗？&lt;/p&gt;
 &lt;p&gt;我们先看下边一段代码。先自己在心里运行一遍结果，然后在去验证。如果都对了，恭喜你不用看了，该干嘛干嘛去吧，不要浪费时间。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Golang的包管理实践</title>
-      <link>https://www.daizibo.cn/post/golang-package-management/</link>
+      <link>https://daizibo.cn/post/golang-package-management/</link>
       <pubDate>Fri, 17 Jun 2016 17:41:57 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/golang-package-management/</guid>
+      <guid>https://daizibo.cn/post/golang-package-management/</guid>
       <description>&lt;h2 id=&#34;golang包管理带来的问题&#34;&gt;Golang包管理带来的问题&lt;/h2&gt;
 &lt;p&gt;Golang包管理，在团队成员比较少的情况下，Golang自带的包管理工具 &lt;code&gt;go get&lt;/code&gt; 足已满足使用，但是由于服务端团队在急速扩张，同学越来越多，对于Golang包管理就会带来以下问题：&lt;/p&gt;
 &lt;blockquote&gt;

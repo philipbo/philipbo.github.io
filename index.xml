@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</title>
-    <link>https://www.daizibo.cn/</link>
+    <link>https://daizibo.cn/</link>
     <description>Recent content on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Sep 2023 22:53:42 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Sep 2023 22:53:42 +0800</lastBuildDate><atom:link href="https://daizibo.cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go第三方库samber/lo - 一个类似 Lodash 的 Go 库，简化开发、提高效率</title>
-      <link>https://www.daizibo.cn/post/go-lib-samber-lo/</link>
+      <link>https://daizibo.cn/post/go-lib-samber-lo/</link>
       <pubDate>Sat, 09 Sep 2023 22:53:42 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/go-lib-samber-lo/</guid>
+      <guid>https://daizibo.cn/post/go-lib-samber-lo/</guid>
       <description>&lt;h1 id=&#34;介绍&#34;&gt;介绍&lt;/h1&gt;
 &lt;p&gt;在 Go 语言的开发过程中，我们经常需要使用一些常用的工具函数来简化代码编写和提高开发效率。
 &lt;a href=&#34;https://github.com/samber/lo&#34;&gt;samber/lo&lt;/a&gt; 是一个类似于 JavaScript 中的 Lodash 库的 Go 语言库，
@@ -37,10 +37,10 @@
     
     <item>
       <title>Docker - 清理Docker占用的磁盘空间</title>
-      <link>https://www.daizibo.cn/post/docker-clean-disk/</link>
+      <link>https://daizibo.cn/post/docker-clean-disk/</link>
       <pubDate>Fri, 08 Sep 2023 19:00:58 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/docker-clean-disk/</guid>
+      <guid>https://daizibo.cn/post/docker-clean-disk/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;今天突然收到测试服务器的磁盘空间不足的报警，处理这种报警还是比较有经验的，肯定是&lt;code&gt;docker&lt;/code&gt;的日志占用了太多的磁盘空间导致，
 之前处理后，比较懒，没有记录下来。&lt;/p&gt;
@@ -54,10 +54,10 @@
     
     <item>
       <title>Rust 入坑之前言 - 进入Rust的编程世界</title>
-      <link>https://www.daizibo.cn/post/rust/rust_intro/</link>
+      <link>https://daizibo.cn/post/rust/rust_intro/</link>
       <pubDate>Sun, 03 Sep 2023 12:54:10 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/rust/rust_intro/</guid>
+      <guid>https://daizibo.cn/post/rust/rust_intro/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;由于个人原因，主要是为了缓解焦虑，其次掌握一门新的编程语言，扩展视野等，希望未来能有用武之地，所以决定学习一门新的编程语言，这门编程语言就是Rust。&lt;/p&gt;
 &lt;h1 id=&#34;为什么是rust&#34;&gt;为什么是Rust&lt;/h1&gt;
@@ -89,19 +89,19 @@ Rust 集表达力、高性能、内存安全于一身，在 1.0 版本发布后�
     
     <item>
       <title>About</title>
-      <link>https://www.daizibo.cn/about/</link>
+      <link>https://daizibo.cn/about/</link>
       <pubDate>Thu, 26 Nov 2020 15:33:46 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/about/</guid>
+      <guid>https://daizibo.cn/about/</guid>
       <description>关于我 半路出家程序员 程序员，Gopher。 技术方向 服务端 Web iOS开发爱好者 前端半成手 联系方式 Email: xiaobo1128#gmail.com GitHub: philipbo</description>
     </item>
     
     <item>
       <title>Go语言的array、slice，你需要知道的那些事儿</title>
-      <link>https://www.daizibo.cn/post/golang-array-slice/</link>
+      <link>https://daizibo.cn/post/golang-array-slice/</link>
       <pubDate>Mon, 25 Jul 2016 12:07:44 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/golang-array-slice/</guid>
+      <guid>https://daizibo.cn/post/golang-array-slice/</guid>
       <description>&lt;p&gt;Go语言中的&lt;code&gt;array&lt;/code&gt;、&lt;code&gt;slice&lt;/code&gt;，你真的了解了吗？先看下段代码，如果你心中的结果都答对了，并且能说出具体原因（不是蒙对的:)）,那么你就可以不用在这里浪费时间了.
 这段代码也让我反思自己，文档认真看了吗？看过文档后记住了吗？（不是过个几天就忘了）反复看过文档吗？我回答自己：认真看了，当时记住了，没有反复看过，来增强记忆。从现起改正自己吧。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;不啰嗦了，直接上代码:&lt;/strong&gt;&lt;/p&gt;
@@ -153,20 +153,20 @@ Rust 集表达力、高性能、内存安全于一身，在 1.0 版本发布后�
     
     <item>
       <title>Go语言的defer那点事</title>
-      <link>https://www.daizibo.cn/post/golang-defer/</link>
+      <link>https://daizibo.cn/post/golang-defer/</link>
       <pubDate>Thu, 21 Jul 2016 13:50:22 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/golang-defer/</guid>
+      <guid>https://daizibo.cn/post/golang-defer/</guid>
       <description>&lt;p&gt;Go语言的&lt;code&gt;defer&lt;/code&gt;语句提供了强大的机制，通常用于简化执行各种清理操作，释放锁等操作，例如能够保证打开的文件，肯定被关闭，那你真的理解&lt;code&gt;defer&lt;/code&gt;了吗？&lt;/p&gt;
 &lt;p&gt;我们先看下边一段代码。先自己在心里运行一遍结果，然后在去验证。如果都对了，恭喜你不用看了，该干嘛干嘛去吧，不要浪费时间。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>我的Git提交信息规范</title>
-      <link>https://www.daizibo.cn/post/my-commit-message/</link>
+      <link>https://daizibo.cn/post/my-commit-message/</link>
       <pubDate>Tue, 28 Jun 2016 14:41:49 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/my-commit-message/</guid>
+      <guid>https://daizibo.cn/post/my-commit-message/</guid>
       <description>&lt;p&gt;Git 每次提交代码，都要写 commit message（提交说明，写啥都可以），否则就不允许提交。
 但是对commit message的提交信息格式一直是个头疼的问题。在协作人数比较少的情况尊守口头规范还可以，在协作人数比较多的情况，如果没有规范，就是个头疼的问题，比如在作code review时，没办法很快的找到相关的commit.&lt;/p&gt;
 &lt;p&gt;最近看了一些关提交规范的文章，特别是阮一峰老师的&lt;code&gt;Commit message 和 Change log 编写指南&lt;/code&gt;文章，才有了更清晰的认识。commit message 应该清晰明了，说明本次提交的目的。&lt;/p&gt;
@@ -175,10 +175,10 @@ Rust 集表达力、高性能、内存安全于一身，在 1.0 版本发布后�
     
     <item>
       <title>Golang的包管理实践</title>
-      <link>https://www.daizibo.cn/post/golang-package-management/</link>
+      <link>https://daizibo.cn/post/golang-package-management/</link>
       <pubDate>Fri, 17 Jun 2016 17:41:57 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/golang-package-management/</guid>
+      <guid>https://daizibo.cn/post/golang-package-management/</guid>
       <description>&lt;h2 id=&#34;golang包管理带来的问题&#34;&gt;Golang包管理带来的问题&lt;/h2&gt;
 &lt;p&gt;Golang包管理，在团队成员比较少的情况下，Golang自带的包管理工具 &lt;code&gt;go get&lt;/code&gt; 足已满足使用，但是由于服务端团队在急速扩张，同学越来越多，对于Golang包管理就会带来以下问题：&lt;/p&gt;
 &lt;blockquote&gt;

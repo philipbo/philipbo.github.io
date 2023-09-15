@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>rust on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</title>
-    <link>https://www.daizibo.cn/categories/rust/</link>
+    <link>https://daizibo.cn/categories/rust/</link>
     <description>Recent content in rust on Philipbo&#39;s blog - 努力记录一些自己觉得有趣的东西...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 03 Sep 2023 12:54:10 +0800</lastBuildDate><atom:link href="https://www.daizibo.cn/categories/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Sep 2023 12:54:10 +0800</lastBuildDate><atom:link href="https://daizibo.cn/categories/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rust 入坑之前言 - 进入Rust的编程世界</title>
-      <link>https://www.daizibo.cn/post/rust/rust_intro/</link>
+      <link>https://daizibo.cn/post/rust/rust_intro/</link>
       <pubDate>Sun, 03 Sep 2023 12:54:10 +0800</pubDate>
       
-      <guid>https://www.daizibo.cn/post/rust/rust_intro/</guid>
+      <guid>https://daizibo.cn/post/rust/rust_intro/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;由于个人原因，主要是为了缓解焦虑，其次掌握一门新的编程语言，扩展视野等，希望未来能有用武之地，所以决定学习一门新的编程语言，这门编程语言就是Rust。&lt;/p&gt;
 &lt;h1 id=&#34;为什么是rust&#34;&gt;为什么是Rust&lt;/h1&gt;

@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://www.daizibo.cn/sitemap.xml
+Sitemap: https://daizibo.cn/sitemap.xml
